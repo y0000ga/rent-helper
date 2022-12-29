@@ -1,0 +1,97 @@
+.Navigation {
+  min-height: 100px;
+  box-shadow: 0px 0px 5px 5px var(--gray);
+  padding: 0px 5%;
+  display: flex;
+  justify-content: space-between;
+  .logo__container {
+    width: 170px;
+    display: flex;
+    align-items: center;
+    img {
+      width: 60px;
+      height: 60px;
+    }
+    p {
+      margin-left: 10px;
+      font-size: 28px;
+      color: var(--black);
+      line-height: 28px;
+      font-weight: 700;
+    }
+  }
+  .hamburger__icon {
+    padding: 25px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+    .line {
+      background-color: var(--gray);
+      width: 45px;
+      height: 5px;
+    }
+    &:hover {
+      .line {
+        background-color: var(--blue);
+      }
+    }
+  }
+  .navList {
+    position: absolute;
+    border-top: solid 1px var(--gray);
+    list-style-type: none;
+    left: 0px;
+    top: 100%;
+    width: 100%;
+    z-index: 3;
+    li {
+      background: var(--white);
+      border-bottom: solid 1px var(--gray);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80px;
+      cursor: pointer;
+      &:hover {
+        color: var(--blue);
+      }
+    }
+  }
+}
+
+.login__form {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  border: solid 1px;
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0px;
+  border-radius: 10px;
+  animation: loginFormShine 10s infinite;
+  border: solid 1px var(--gray);
+  p {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+  .login__input,
+  .button {
+    width: 85%;
+    margin: 15px 0px;
+  }
+  .button {
+    height: 55px;
+    font-size: 20px;
+  }
+}
+
+@keyframes loginFormShine {
+  0%{border: solid 1px var(--gray);}
+  50%{border: solid 1px var(--blue);}
+  100%{border: solid 1px var(--gray);}
+}
