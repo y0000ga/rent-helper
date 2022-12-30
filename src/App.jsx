@@ -1,6 +1,5 @@
 import './base.module.scss'
 import './reset.module.scss'
-import 'bootstrap/dist/css/bootstrap-grid.min.css'
 import CollectPage from './pages/CollectPage'
 import SearchPage from './pages/SearchPage'
 import LoginPage from './pages/LoginPage'
