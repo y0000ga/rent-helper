@@ -13,11 +13,11 @@ export const ConditionBlock = (props) => {
 }
 
 export const AdjustBlock = (props) => {
-  const { content, type, math } = props
+  const { content, type, math, width,onClick } = props
   return (
     <Button
       variant={math === 'add' ? 'outlined' : 'contained'}
-      sx={{ margin: 1 }}
+      sx={{ margin: 1, width: `${width}` }}
       color={
         type === 'mustNotHave'
           ? 'error'
@@ -25,6 +25,7 @@ export const AdjustBlock = (props) => {
           ? 'success'
           : 'primary'
       }
+      onClick={onClick}
     >
       {content}
       {math === 'add' ? (

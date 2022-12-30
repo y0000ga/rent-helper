@@ -1,5 +1,5 @@
 import classes from './CollectPage.module.scss'
-import GridSystem from '../Layout/GridSystem'
+import LayoutWrapper from '../Layout/LayoutWrapper'
 import { TextField } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import Backdrop from '@mui/material/Backdrop'
@@ -17,7 +17,7 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 
 const CollectPage = () => {
   return (
-    <GridSystem>
+    <LayoutWrapper>
       {/* <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={true}
@@ -117,7 +117,7 @@ const CollectPage = () => {
         <RoomItem />
         <RoomItem />
       </div>
-    </GridSystem>
+    </LayoutWrapper>
   )
 }
 

@@ -1,0 +1,32 @@
+.submitBtn {
+  width: 50%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.option__container {
+  display: flex;
+  margin: 0 8px;
+  .title {
+    min-width: 60px;
+    padding: 6px 0px;
+    .highlight {
+      font-weight: 700;
+      color: var(--blue);
+    }
+  }
+  
+  .options__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .textField {
+      width: 35%;
+    }
+    p {
+      margin: 0px 5px;
+    }
+  }
+}
