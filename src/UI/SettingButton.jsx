@@ -1,9 +1,7 @@
 import { Button } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import AddIcon from '@mui/icons-material/Add'
-import EditIcon from '@mui/icons-material/Edit'
 import { useState } from 'react'
-import CheckIcon from '@mui/icons-material/Check'
 import { useDispatch } from 'react-redux'
 import { settingActions } from '../store/setting-slice'
 import OutlinedInput from '@mui/material/OutlinedInput'
@@ -11,21 +9,13 @@ import InputLabel from '@mui/material/InputLabel'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
 
-export const ConditionBlock = (props) => {
-  const { content,type } = props
-  return (
-    <Button variant='contained' sx={{ margin: 1, cursor: 'default' }} color={type === 'error' ? 'error': 'primary'}>
-      {content}
-      {props.children}
-    </Button>
-  )
-}
-
-export const AdjustBlock = (props) => {
+const SettingBlock = (props) => {
   const { content, type, math, width, pathname } = props
   const dispatch = useDispatch()
+  // --- useState
   const [isEdit, setIsEdit] = useState(false)
   const [userInput, setUserInput] = useState('')
+  // --- event handler
   const removeHandler = () => {
     if (pathname === '/setting') {
       if (type === 'mustHave') {
@@ -35,6 +25,7 @@ export const AdjustBlock = (props) => {
       }
     }
   }
+
   const addHandler = () => {
     if (pathname === '/setting') {
       if (type === 'mustHave') {
@@ -43,6 +34,8 @@ export const AdjustBlock = (props) => {
         dispatch(settingActions.addMustNotHave(userInput))
       }
     }
+    setIsEdit(false)
+    setUserInput('')
   }
   return (
     <>
@@ -102,79 +95,4 @@ export const AdjustBlock = (props) => {
   )
 }
 
-export const CheckBlock = (props) => {
-  const { content, type, checked } = props
-  return (
-    <Button
-      variant={checked ? 'contained' : 'outlined'}
-      color={
-        type === 'mustNotHave'
-          ? 'error'
-          : type === 'addiExpen'
-          ? 'success'
-          : 'primary'
-      }
-      sx={{ margin: 1, cursor: 'default' }}
-    >
-      {content}
-    </Button>
-  )
-}
-
-export const TextButton = (props) => {
-  const { content, onClick } = props
-  return (
-    <Button sx={{ margin: 1 }} onClick={onClick}>
-      {content}
-    </Button>
-  )
-}
-
-export const ToggleButton = (props) => {
-  const { content, checked, type } = props
-  const [isEdit, setIsEdit] = useState(false)
-  const [isChecked, setIsChecked] = useState(checked)
-  return (
-    <>
-      {isEdit === true ? (
-        <Button
-          variant={isChecked === true ? 'contained' : 'outlined'}
-          sx={{ margin: 1, cursor: 'default' }}
-          color={type === 'mustNotHave' ? 'error' : 'primary'}
-        >
-          {isChecked === true ? '有' : '無'}
-          {content}
-          <CheckIcon
-            sx={{ margin: '0 5px', cursor: 'pointer' }}
-            onClick={() => {
-              setIsChecked(true)
-              setIsEdit(false)
-            }}
-          />
-          <CloseIcon
-            sx={{ margin: '0 5px', cursor: 'pointer' }}
-            onClick={() => {
-              setIsChecked(false)
-              setIsEdit(false)
-            }}
-          />
-        </Button>
-      ) : (
-        <Button
-          variant={isChecked === true ? 'contained' : 'outlined'}
-          sx={{ margin: 1, cursor: 'default' }}
-          color={type === 'mustNotHave' ? 'error' : 'primary'}
-        >
-          {isChecked === true ? '有' : '無'}
-          {content}
-          <EditIcon
-            sx={{ marginLeft: 1, cursor: 'pointer' }}
-            onClick={() => {
-              setIsEdit(true)
-            }}
-          />
-        </Button>
-      )}
-    </>
-  )
-}
+export default SettingBlock

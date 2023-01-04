@@ -15,3 +15,25 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+.searchItem {
+  position: relative;
+  .editIcon {
+    position: absolute;
+    top: 8px;
+    right: 40px;
+    cursor: pointer;
+    &:hover {
+      color: var(--blue);
+    }
+  }
+  .removeCircleIcon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    &:hover {
+      color: var(--red);
+    }
+  }
+}

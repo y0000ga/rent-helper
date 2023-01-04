@@ -1,7 +1,9 @@
+export const baseURL = 'https://412e-223-136-148-157.jp.ngrok.io/api/'
+
 export const navItemData = [
   { title: '搜尋', pathname: '/search' },
   { title: '收藏', pathname: '/collect' },
-  { title: '設定', pathname: '/setting' },
+  { title: '自定義條件', pathname: '/setting' },
   { title: '登出', pathname: '/login' },
 ]
 
@@ -51,3 +53,9 @@ export const newpeiDistData = [
   '貢寮區',
   '烏來區',
 ]
+
+export const type = ['不限', '整層住家', '獨立套房', '分租套房', '雅房']
+
+export const style = ['不限', '公寓', '電梯大樓']
+
+export const limitation = ['排除頂樓加蓋']

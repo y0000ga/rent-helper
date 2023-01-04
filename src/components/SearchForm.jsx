@@ -8,9 +8,17 @@ import {
   TextField,
   Divider,
 } from '@mui/material'
-import { taipeiDistData, newpeiDistData } from '../configData'
+import {
+  taipeiDistData,
+  newpeiDistData,
+  type,
+  style,
+  limitation,
+} from '../configData'
 import * as yup from 'yup'
+import { useState } from 'react'
 const SearchForm = () => {
+  const [city, setCity] = useState('taipei')
   return (
     <Formik>
       <Form>
@@ -27,15 +35,38 @@ const SearchForm = () => {
             位置<span className={classes.highlight}> *</span>
           </p>
           <FormGroup className={classes.options__content}>
-            <Button variant='text'>台北市</Button>
-            <Button variant='text'>新北市</Button>
+            <Button
+              variant='text'
+              onClick={() => {
+                setCity('taipei')
+              }}
+            >
+              台北市
+            </Button>
+            <Button
+              variant='text'
+              onClick={() => {
+                setCity('newpei')
+              }}
+            >
+              新北市
+            </Button>
             <div>
-              {taipeiDistData.map((data) => (
-                <FormControlLabel control={<Checkbox />} label={data} />
-              ))}
-              {/* {newpeiDistData.map((data) => (
-              <FormControlLabel control={<Checkbox />} label={data} />
-            ))} */}
+              {city === 'taipei'
+                ? taipeiDistData.map((data) => (
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label={data}
+                      key={data}
+                    />
+                  ))
+                : newpeiDistData.map((data) => (
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label={data}
+                      key={data}
+                    />
+                  ))}
             </div>
           </FormGroup>
         </div>
@@ -45,11 +76,13 @@ const SearchForm = () => {
             類型<span className={classes.highlight}> *</span>
           </p>
           <FormGroup className={classes.options__content}>
-            <FormControlLabel control={<Checkbox />} label='不限' />
-            <FormControlLabel control={<Checkbox />} label='整層住家' />
-            <FormControlLabel control={<Checkbox />} label='獨立套房' />
-            <FormControlLabel control={<Checkbox />} label='分租套房' />
-            <FormControlLabel control={<Checkbox />} label='雅房' />
+            {type.map((data) => (
+              <FormControlLabel
+                control={<Checkbox />}
+                label={data}
+                key={data}
+              />
+            ))}
           </FormGroup>
         </div>
         <Divider sx={{ margin: '15px 8px' }} />
@@ -57,11 +90,9 @@ const SearchForm = () => {
           <p className={classes.title}>
             型態<span className={classes.highlight}> *</span>
           </p>
-          <FormGroup className={classes.options__content}>
-            <FormControlLabel control={<Checkbox />} label='不限' />
-            <FormControlLabel control={<Checkbox />} label='公寓' />
-            <FormControlLabel control={<Checkbox />} label='電梯大樓' />
-          </FormGroup>
+          {style.map((data) => (
+            <FormControlLabel control={<Checkbox />} label={data} key={data} />
+          ))}
         </div>
         <Divider sx={{ margin: '15px 8px' }} />
         <div className={classes.option__container}>
@@ -70,13 +101,13 @@ const SearchForm = () => {
           </p>
           <FormGroup className={classes.options__content}>
             <TextField
-              id='spaceMin'
+              id='rentMin'
               size='small'
               className={classes.textField}
             />
             <p>到</p>
             <TextField
-              id='spaceMax'
+              id='rentMax'
               size='small'
               className={classes.textField}
             />
@@ -107,7 +138,13 @@ const SearchForm = () => {
         <div className={classes.option__container}>
           <p className={classes.title}>限制</p>
           <FormGroup className={classes.options__content}>
-            <FormControlLabel control={<Checkbox />} label='排除頂樓加蓋' />
+            {limitation.map((data) => (
+              <FormControlLabel
+                control={<Checkbox />}
+                label={data}
+                key={data}
+              />
+            ))}
           </FormGroup>
         </div>
         <Button variant='contained' className={classes.submitBtn}>

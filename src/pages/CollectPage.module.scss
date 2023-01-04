@@ -1,6 +1,7 @@
 .container {
+  width: 100%;
   border: solid 1px var(--gray);
-  margin: 50px 0px;
+  margin-top: 50px;
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0px 0px 5px 2.5px var(--gray);
@@ -9,18 +10,13 @@
   flex-direction: column;
 }
 
-.urlInput {
-  display: flex;
-  align-items: center;
-}
-
-.addIcon {
-  background-color: var(--blue);
-  border: solid 1px;
-  height: 100%;
-  color: var(--white);
-  margin-left: 10px;
-  cursor: pointer;
+.roomItemContainer {
+  .infiniteScroll {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 }
 
 .mustHave,
@@ -52,52 +48,15 @@
   }
 }
 
-.modal {
-  width: 75%;
-  max-width: 600px;
-  background-color: var(--white);
-  border-radius: 5px;
-  .top {
-    background-color: var(--blue);
-    padding: 10px;
-    letter-spacing: 3px;
-    display: flex;
-    justify-content: space-between;
-  }
-  .bottom {
-    overflow: hidden scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    height: 600px;
-    background-color: var(--white);
-    padding: 10px;
-    .title {
-      color: var(--black);
-      margin: 8px;
-    }
-    .imgList {
-      width: 100%;
-      position: relative;
-      .pagination {
-        display: flex;
-        justify-content: space-between;
-      }
-      img {
-        width: 100%;
-        z-index: 1;
-      }
-    }
-    .conditionList {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-    }
+.infiniteScroll {
+  overflow: -moz-hidden-unscrollable;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
 .textField {
-  
   width: calc(100% - 10px);
 }
 
@@ -105,4 +64,29 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.loadingContainer {
+  width: 100%;
+  max-width: 350px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .loading {
+    animation: loading 1s infinite;
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

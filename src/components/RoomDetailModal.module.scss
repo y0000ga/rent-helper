@@ -1,0 +1,56 @@
+.modal {
+  width: 75%;
+  max-width: 600px;
+  background-color: var(--white);
+  border-radius: 10px;
+  overflow: hidden;
+  .top {
+    background-color: var(--blue);
+    padding: 10px;
+    letter-spacing: 3px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .bottom {
+    overflow: hidden scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    height: 600px;
+    background-color: var(--white);
+    padding: 20px;
+    .title {
+      color: var(--black);
+      margin: 8px;
+    }
+    .imgList {
+      width: 100%;
+      position: relative;
+      .pagination {
+        display: flex;
+        justify-content: center;
+      }
+  
+      img {
+        border: solid 1px var(--gray);
+        overflow: hidden;
+        border-radius: 10px;
+        width: 100%;
+        z-index: 1;
+      }
+    }
+    
+    .conditionList {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+.textField {
+  width: calc(100% - 10px);
+}
