@@ -4,39 +4,24 @@ const initialState = {
   searchCollection: [
     {
       title: '1號',
-      location: ['信義區', '南港區', '松山區', '大安區', '中山區'],
-      type: ['整層住家', '獨立套房', '雅房'],
-      building: ['公寓'],
-      money: [10000, 15000],
-      space: [15, 20],
-      addition: '可寵',
-    },
-    {
-      title: '2號',
-      location: ['信義區', '南港區', '松山區', '大安區', '中山區'],
-      type: ['整層住家', '獨立套房', '雅房'],
-      building: ['公寓'],
-      money: [10000, 15000],
-      space: [15, 20],
-      addition: '可寵',
-    },
-    {
-      title: '3號',
-      location: ['信義區', '南港區', '松山區', '大安區', '中山區'],
-      type: ['整層住家', '獨立套房', '雅房'],
-      building: ['公寓'],
-      money: [10000, 15000],
-      space: [15, 20],
+      region: '台北市',
+      section: ['信義區', '南港區', '松山區', '大安區', '中山區'],
+      kind: ['整層住家', '獨立套房', '雅房'],
+      shape: ['公寓'],
+      price: [10000, 15000],
+      area: [15, 20],
       addition: '可寵',
     },
   ],
   currentSearch: {
-    location: ['信義區', '南港區', '松山區', '大安區', '中山區'],
-    type: ['整層住家', '獨立套房', '雅房'],
-    building: ['公寓'],
-    money: [10000, 15000],
-    space: [15, 20],
-    addition: '可寵',
+    title: '',
+    region: '',
+    section: [],
+    kind: [],
+    shape: [],
+    price: [],
+    area: [],
+    addition: '',
   },
   isSearchShown: true,
 }
@@ -48,9 +33,11 @@ const searchSlice = createSlice({
     setIsSearchShown(state) {
       state.isSearchShown = !state.isSearchShown
     },
-    removeSearchCondtion(state, action) {
+    removeSearchCondition(state, action) {
       const removeItem = action.payload
-      state.searchCollection = state.searchCollection.filter((data) => data.title !== removeItem)
+      state.searchCollection = state.searchCollection.filter(
+        (data) => data.title !== removeItem
+      )
     },
   },
 })

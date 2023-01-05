@@ -11,6 +11,7 @@ import FormControl from '@mui/material/FormControl'
 import { expenseCreateApi, expenseDeleteApi } from '../api/ExpenseApi'
 import Swal from 'sweetalert2'
 import { FormHelperText } from '@mui/material'
+import ClearIcon from '@mui/icons-material/Clear'
 
 const ExpenseButton = (props) => {
   const { math, width, data } = props
@@ -23,28 +24,30 @@ const ExpenseButton = (props) => {
     const res = await expenseDeleteApi({ expenseId: data.id })
     dispatch(roomActions.removeExpense(res.data.expense))
   }
+  const userInputValid =
+    userInput.trim().length > 0 && userInput.trim().length < 21
+  const userInputExpenValid =
+    Number(userInputExpen) > 0 && Number(userInputExpen) < 9999
   const addHandler = async () => {
-    if (userInput.trim().length === 0 || userInput.trim().length > 20) {
-      return
-    }
-
-    // const res = await expenseCreateApi({
-    //   HouseId: house.id,
-    //   name: userInput,
-    //   price: userInputExpen,
-    // })
-    // dispatch(
-    //   roomActions.addExpenses({ expense: res.data.expense, id: house.id })
-    // )
-    // setIsEdit(false)
+    const res = await expenseCreateApi({
+      HouseId: house.id,
+      name: userInput,
+      price: userInputExpen,
+    })
+    dispatch(
+      roomActions.addExpenses({ expense: res.data.expense, id: house.id })
+    )
+    setIsEdit(false)
+    setUserInput('')
+    setUserInputExpen('')
   }
+
   return (
     <>
-    
       {isEdit === true ? (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', width: '100%' }}>
           <FormControl
-            sx={{ margin: 1, width: '50%' }}
+            sx={{ margin: 1, width: '100%' }}
             variant='outlined'
             color='error'
             size='small'
@@ -58,9 +61,20 @@ const ExpenseButton = (props) => {
               }}
               label='額外支出'
             />
+            {userInput.length > 20 && (
+              <p
+                style={{
+                  color: '#D3302F',
+                  fontSize: '12px',
+                  marginLeft: '5px',
+                }}
+              >
+                字數不得超過 20 字
+              </p>
+            )}
           </FormControl>
           <FormControl
-            sx={{ m: 1, width: '50%' }}
+            sx={{ m: 1 }}
             variant='outlined'
             color='error'
             size='small'
@@ -68,7 +82,6 @@ const ExpenseButton = (props) => {
             <InputLabel htmlFor='add'>金額</InputLabel>
             <OutlinedInput
               type='number'
-              InputProps={{ inputProps: { min: 1, max: 9999 } }}
               id='add'
               value={userInputExpen}
               onChange={(event) => {
@@ -76,15 +89,49 @@ const ExpenseButton = (props) => {
               }}
               endAdornment={
                 <InputAdornment position='end'>
-                  <AddIcon
-                    onClick={addHandler}
-                    edge='end'
+                  {userInputExpenValid && userInputValid && (
+                    <AddIcon
+                      color='success'
+                      onClick={addHandler}
+                      edge='end'
+                      sx={{ cursor: 'pointer' }}
+                    />
+                  )}
+                  <ClearIcon
+                    color='error'
                     sx={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      setUserInputExpen('')
+                      setUserInput('')
+                      setIsEdit(false)
+                    }}
                   />
                 </InputAdornment>
               }
               label='額外支出'
             />
+            {Number(userInputExpen) > 9999 && (
+              <p
+                style={{
+                  color: '#D3302F',
+                  fontSize: '12px',
+                  marginLeft: '5px',
+                }}
+              >
+                金額不得超過 9999
+              </p>
+            )}
+            {Number(userInputExpen) < 0 && (
+              <p
+                style={{
+                  color: '#D3302F',
+                  fontSize: '12px',
+                  marginLeft: '5px',
+                }}
+              >
+                金額不得為負數
+              </p>
+            )}
           </FormControl>
         </div>
       ) : (

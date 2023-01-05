@@ -46,27 +46,22 @@ const roomSlice = createSlice({
       const existedItem = state.allRoom.findIndex((data) => data.id === id)
       state.allRoom[existedItem].comment = comment
     },
+    meetCondition(state, action) {
+      const { meetId, ConditionId } = action.payload
+      const existedIndex = state.currentRoom.conditions.findIndex(
+        (data) => data.id === ConditionId
+      )
+      state.currentRoom.conditions[existedIndex].meetId = meetId
+    },
+    notMeetCondition(state, action) {
+      const { ConditionId } = action.payload
+      const existedIndex = state.currentRoom.conditions.findIndex(
+        (data) => data.id === ConditionId
+      )
+      state.currentRoom.conditions[existedIndex].meetId = null
+    },
   },
 })
 
 export const roomActions = roomSlice.actions
 export default roomSlice.reducer
-
-// HouseId
-// :
-// 8
-// UserId
-// :
-// 2
-// createdAt
-// :
-// "2023-01-04T13:51:49.000Z"
-// id
-// :
-// 24
-// name
-// :
-// "ads"
-// price
-// :
-// 111

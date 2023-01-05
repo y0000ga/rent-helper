@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material'
-import AddBoxIcon from '@mui/icons-material/AddBox'
+import AddHomeIcon from '@mui/icons-material/AddHome'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 import { housesCreateApi } from '../api/housesApi'
@@ -60,7 +60,7 @@ const UrlInput = () => {
         }}
       />
       {status === 'finish' ? (
-        <AddBoxIcon
+        <AddHomeIcon
           sx={{ cursor: 'pointer', fontSize: '54px' }}
           color='primary'
           onClick={searchHandler}

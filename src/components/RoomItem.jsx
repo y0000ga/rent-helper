@@ -21,6 +21,7 @@ const RoomItem = (props) => {
     shape,
     comment,
     extraExpenses,
+    isAllMet,
   } = props.data
   const [isModalShown, setIsModalShown] = useState(false)
   const showModalHandler = async () => {
@@ -42,20 +43,32 @@ const RoomItem = (props) => {
         <div className={classes.pointer}>
           <CloseIcon onClick={deleteRoomHandler} />
         </div>
-        <h3 className={classes.name}>{name}</h3>
+        <h3
+          className={classes.name}
+        >
+          {name}
+        </h3>
         <img src={cover} alt='cover' />
         <div className={classes.intro}>
           <ConditionBlock content={region} />
           <ConditionBlock content={section} />
           <ConditionBlock content={kind} />
-          <ConditionBlock content={`${area}坪`} />
+          <ConditionBlock content={`${area}`} />
           <ConditionBlock content={`${price}元`} />
           <ConditionBlock content={shape} />
           <ConditionBlock
             content={`額外支出 ${
-              extraExpenses === null ? '0' : extraExpenses
-            } 元`}
+              extraExpenses === undefined
+                ? '0'
+                : extraExpenses === null
+                ? '0'
+                : extraExpenses
+            }  元`}
             type='error'
+          />
+          <ConditionBlock
+            content={isAllMet === 0 ? '條件未全符合' : '條件全符合'}
+            type={isAllMet === 0 ? 'error' : 'success'}
           />
         </div>
         <p>{comment === '' ? '目前沒有任何備註' : comment}</p>

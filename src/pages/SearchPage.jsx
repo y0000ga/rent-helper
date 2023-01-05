@@ -30,7 +30,7 @@ const SearchPage = () => {
             <RemoveCircleIcon
               className={classes.removeCircleIcon}
               onClick={() => {
-                dispatch(searchActions.removeSearchCondtion(data.title))
+                dispatch(searchActions.removeSearchCondition(data.title))
               }}
             />
             <EditIcon className={classes.editIcon} />

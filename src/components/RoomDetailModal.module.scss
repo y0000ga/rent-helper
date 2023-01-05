@@ -33,9 +33,9 @@
         display: flex;
         justify-content: center;
       }
-  
       img {
         border: solid 1px var(--gray);
+
         overflow: hidden;
         border-radius: 10px;
         width: 100%;
@@ -54,3 +54,6 @@
 .textField {
   width: calc(100% - 10px);
 }
+
+
+

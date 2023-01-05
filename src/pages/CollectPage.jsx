@@ -36,7 +36,27 @@ const CollectPage = () => {
   }, [dispatch])
 
   const roomList = allRoom.map((data) => <RoomItem data={data} key={data.id} />)
-
+  const allMetHandler = async () => {
+    const res = await housesAllGetApi({ page: 1, filter: 'allMet' })
+    const { houses } = res.data
+    dispatch(roomActions.getAllHouses(houses))
+    setPage(2)
+    setTabValue(1)
+  }
+  const notAllMetHanldler = async () => {
+    const res = await housesAllGetApi({ page: 1, filter: 'notAllMet' })
+    const { houses } = res.data
+    dispatch(roomActions.getAllHouses(houses))
+    setPage(2)
+    setTabValue(2)
+  }
+  const allHandler = async () => {
+    const res = await housesAllGetApi({ page: 1 })
+    const { houses } = res.data
+    dispatch(roomActions.getAllHouses(houses))
+    setPage(2)
+    setTabValue(0)
+  }
   const changePage = async () => {
     const res = await housesAllGetApi({ page: page })
     const { houses } = res.data
@@ -55,49 +75,47 @@ const CollectPage = () => {
               value={0}
               label='全部'
               sx={{ width: '33.3%' }}
-              onClick={() => {
-                setTabValue(0)
-              }}
+              onClick={allHandler}
             />
             <Tab
               value={1}
-              label='必備全通過'
+              label='條件全符合'
               sx={{ width: '33.3%' }}
-              onClick={() => {
-                setTabValue(1)
-              }}
+              onClick={allMetHandler}
             />
             <Tab
               value={2}
-              label='避免全通過'
+              label='條件未全符合'
               sx={{ width: '33.3%' }}
-              onClick={() => {
-                setTabValue(2)
-              }}
+              onClick={notAllMetHanldler}
             />
           </Tabs>
         </Box>
         <div className={classes.roomItemContainer} id='room__list'>
-          <InfiniteScroll
-            className={classes.infiniteScroll}
-            dataLength={allRoom.length}
-            next={changePage}
-            hasMore={hasMore !== 0}
-            loader={
-              <div className={classes.loadingContainer}>
-                <LoopIcon
-                  className={classes.loading}
-                  sx={{ cursor: 'wait', fontSize: '54px' }}
-                  color='success'
-                />
-              </div>
-            }
-            endMessage={null}
-            scrollableTarget='room__list'
-            height={850}
-          >
-            {roomList}
-          </InfiniteScroll>
+          {allRoom.length === 0 ? (
+            <p className={classes.emptyMessage}>目前還沒收藏任何物件喔!</p>
+          ) : (
+            <InfiniteScroll
+              className={classes.infiniteScroll}
+              dataLength={allRoom.length}
+              next={changePage}
+              hasMore={hasMore !== 0}
+              loader={
+                <div className={classes.loadingContainer}>
+                  <LoopIcon
+                    className={classes.loading}
+                    sx={{ cursor: 'wait', fontSize: '54px' }}
+                    color='success'
+                  />
+                </div>
+              }
+              endMessage={null}
+              scrollableTarget='room__list'
+              height={850}
+            >
+              {roomList}
+            </InfiniteScroll>
+          )}
         </div>
       </div>
     </LayoutWrapper>

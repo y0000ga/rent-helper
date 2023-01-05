@@ -27,9 +27,11 @@ export const housesCreateApi = async (payload) => {
 
 // 取得全部收藏物件
 export const housesAllGetApi = async (payload) => {
-  const { page } = payload
+  const { page, filter } = payload
   try {
-    const res = await axiosInstance.get(`${housesURL}?page=${page}`)
+    const res = await axiosInstance.get(
+      `${housesURL}?page=${page}&filter=${filter}`
+    )
     return res
   } catch (error) {
     console.error('[Houses All Get Failed]: ', error)
@@ -65,12 +67,12 @@ export const housesEditCommentApi = async (payload) => {
 }
 
 // 刪除單一物件
-export const housesDeleteApi = async(payload) => {
-  const {id} = payload
+export const housesDeleteApi = async (payload) => {
+  const { id } = payload
   try {
     const res = await axiosInstance.delete(`${housesURL}/${id}`)
     return res
-  } catch(error) {
+  } catch (error) {
     console.error('[Houses Delete Failed]: ', error)
     return error.response
   }

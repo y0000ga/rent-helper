@@ -1,20 +1,20 @@
 import classes from './ConditionList.module.scss'
 import { ConditionBlock } from '../UI/Button'
 const ConditionList = (props) => {
-  const { location, type, building, money, space, addition } = props.data
+  const { section, kind, shape, price, area, addition } = props.data
   return (
     <div className={classes.condition__list}>
-      {location.map((data) => (
+      {section.map((data) => (
         <ConditionBlock content={data} key={data} />
       ))}
-      {type.map((data) => (
+      {kind.map((data) => (
         <ConditionBlock content={data} key={data} />
       ))}
-      {building.map((data) => (
+      {shape.map((data) => (
         <ConditionBlock content={data} key={data} />
       ))}
-      <ConditionBlock content={`${money[0]} 到 ${money[1]}元`} />
-      <ConditionBlock content={`${space[0]} 到 ${space[1]}坪`} />
+      <ConditionBlock content={`${price[0]} 到 ${price[1]}元`} />
+      <ConditionBlock content={`${area[0]} 到 ${area[1]}坪`} />
       <ConditionBlock content={addition} />
     </div>
   )

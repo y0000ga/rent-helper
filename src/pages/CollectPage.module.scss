@@ -19,13 +19,6 @@
   }
 }
 
-.mustHave,
-.mustNotHave {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
 .buttonSpace {
   margin: 5px;
 }
@@ -77,6 +70,13 @@
   .loading {
     animation: loading 1s infinite;
   }
+}
+
+.emptyMessage {
+  color: var(--gray);
+  font-size: 60px;
+  text-align: center;
+  padding: 20px 0px;
 }
 
 @keyframes loading {

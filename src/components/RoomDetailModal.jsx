@@ -12,6 +12,7 @@ import Divider from '@mui/material/Divider'
 import { ConditionBlock } from '../UI/Button'
 import { housesEditCommentApi } from '../api/housesApi'
 import { roomActions } from '../store/room-slice'
+import ConditionButton from '../UI/ConditionButton'
 
 const RoomDetailModal = (props) => {
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const RoomDetailModal = (props) => {
     kind,
     shape,
     ServicedFacilities,
+    externalId,
   } = house
   const [commentInput, setCommentInput] = useState(comment)
   const [imgShownIndex, setImgShownIndex] = useState(1)
@@ -42,6 +44,7 @@ const RoomDetailModal = (props) => {
   const saveDataHandler = async () => {
     const res = await housesEditCommentApi({ id, comment: commentInput })
     dispatch(roomActions.editComment(res.data.house))
+    closeModal()
   }
   return (
     <Backdrop
@@ -101,14 +104,13 @@ const RoomDetailModal = (props) => {
             {Expenses.map((data) => (
               <ExpenseButton data={data} type='addiExpen' key={data.id} />
             ))}
-            <ExpenseButton content='新增' type='addiExpen' math='add' />
           </div>
+          <ExpenseButton content='新增' type='addiExpen' math='add' />
           <p className={classes.title}>自定義條件</p>
           <div className={classes.conditionList}>
             {conditions.map((data) => (
-              <ExpenseButton data={data} type='addiExpen' key={data.id} />
+              <ConditionButton data={data} key={data.id} />
             ))}
-            <ExpenseButton content='新增' type='addiExpen' math='add' />
           </div>
 
           <TextField
@@ -128,8 +130,13 @@ const RoomDetailModal = (props) => {
             sx={{ margin: 1 }}
             className={classes.navList}
           >
-            <Button>詳細位置</Button>
-            <Button>591 資訊</Button>
+            <Button
+              onClick={() => {
+                window.open(`https://rent.591.com.tw/home/${externalId}`)
+              }}
+            >
+              591 資訊
+            </Button>
             <Button onClick={saveDataHandler}>儲存</Button>
           </ButtonGroup>
         </div>
