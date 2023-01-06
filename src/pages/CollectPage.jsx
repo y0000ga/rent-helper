@@ -19,6 +19,7 @@ const CollectPage = () => {
   const [tabValue, setTabValue] = useState(0)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
+  const isModalShown = useSelector((state) => state.room.isModalShown)
   useEffect(() => {
     if (!token) {
       navigate('/login')
@@ -32,8 +33,11 @@ const CollectPage = () => {
       dispatch(roomActions.getAllHouses(houses))
       setPage(2)
     }
-    housesAllGet()
-  }, [dispatch])
+    if (isModalShown === false) {
+      setTabValue(0)
+      housesAllGet()
+    }
+  }, [dispatch, isModalShown])
 
   const roomList = allRoom.map((data) => <RoomItem data={data} key={data.id} />)
   const allMetHandler = async () => {

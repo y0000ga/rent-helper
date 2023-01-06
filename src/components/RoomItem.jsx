@@ -4,8 +4,10 @@ import { ConditionBlock, TextButton } from '../UI/Button'
 import RoomDetailModal from '../components/RoomDetailModal'
 import { useState } from 'react'
 import { housesDeleteApi, housesOneGetApi } from '../api/housesApi'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { roomActions } from '../store/room-slice'
+import Swal from 'sweetalert2'
+import { Button } from '@mui/material'
 
 const RoomItem = (props) => {
   const dispatch = useDispatch()
@@ -23,19 +25,31 @@ const RoomItem = (props) => {
     extraExpenses,
     isAllMet,
   } = props.data
-  const [isModalShown, setIsModalShown] = useState(false)
+  const isModalShown = useSelector((state) => state.room.isModalShown)
   const showModalHandler = async () => {
     const res = await housesOneGetApi({ id })
     dispatch(roomActions.getCurrentRoom(res.data))
-    setIsModalShown(true)
+    dispatch(roomActions.setIsModalShown())
   }
   const closeModalHandler = () => {
-    setIsModalShown(false)
+    dispatch(roomActions.setIsModalShown())
   }
 
   const deleteRoomHandler = async () => {
-    const res = await housesDeleteApi({ id })
-    dispatch(roomActions.removeHouse(res.data.house))
+    let result = await Swal.fire({
+      title: '確定要刪除此物件嗎？',
+      text: '刪除後將無法恢復！',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: '取消',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '刪除',
+    })
+    if (result.isConfirmed) {
+      const res = await housesDeleteApi({ id })
+      dispatch(roomActions.removeHouse(res.data.house))
+    }
   }
   return (
     <>
@@ -43,11 +57,7 @@ const RoomItem = (props) => {
         <div className={classes.pointer}>
           <CloseIcon onClick={deleteRoomHandler} />
         </div>
-        <h3
-          className={classes.name}
-        >
-          {name}
-        </h3>
+        <h3 className={classes.name}>{name}</h3>
         <img src={cover} alt='cover' />
         <div className={classes.intro}>
           <ConditionBlock content={region} />
@@ -56,20 +66,34 @@ const RoomItem = (props) => {
           <ConditionBlock content={`${area}`} />
           <ConditionBlock content={`${price}元`} />
           <ConditionBlock content={shape} />
-          <ConditionBlock
-            content={`額外支出 ${
-              extraExpenses === undefined
-                ? '0'
-                : extraExpenses === null
-                ? '0'
-                : extraExpenses
-            }  元`}
-            type='error'
-          />
-          <ConditionBlock
-            content={isAllMet === 0 ? '條件未全符合' : '條件全符合'}
-            type={isAllMet === 0 ? 'error' : 'success'}
-          />
+          <Button
+            variant='contained'
+            sx={{ margin: 1 }}
+            color='warning'
+          >{`額外支出 ${
+            extraExpenses === undefined
+              ? '0'
+              : extraExpenses === null
+              ? '0'
+              : extraExpenses
+          }  元`}</Button>
+          <Button
+            variant='contained'
+            sx={{ margin: 1 }}
+            color={
+              isAllMet === 0
+                ? 'error'
+                : isAllMet === false
+                ? 'error'
+                : 'success'
+            }
+          >
+            {isAllMet === 0
+              ? '條件未全符合'
+              : isAllMet === false
+              ? '條件未全符合'
+              : '條件全符合'}
+          </Button>
         </div>
         <p>{comment === '' ? '目前沒有任何備註' : comment}</p>
         <TextButton content='查看與編輯物件資訊' onClick={showModalHandler} />

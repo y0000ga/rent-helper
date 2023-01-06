@@ -3,12 +3,16 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   allRoom: [],
   currentRoom: [],
+  isModalShown: false,
 }
 
 const roomSlice = createSlice({
   name: 'room',
   initialState: initialState,
   reducers: {
+    setIsModalShown(state) {
+      state.isModalShown = !state.isModalShown
+    },
     getCurrentRoom(state, action) {
       state.currentRoom = action.payload
     },

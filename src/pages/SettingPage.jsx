@@ -1,12 +1,10 @@
 import classes from './SettingPage.module.scss'
 import LayoutWrapper from '../Layout/LayoutWrapper'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TextField } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox'
-
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 import { conditionCreateApi, conditionGetAllApi } from '../api/ConditionApi'
@@ -31,7 +29,7 @@ const SettingPage = () => {
       dispatch(settingActions.getAllCondition(res.data.conditions))
     }
     conditionGetAll()
-  }, [])
+  }, [dispatch])
   const addConditionHandler = async () => {
     if (conditionInput.trim().length === 0) {
       Swal.fire({

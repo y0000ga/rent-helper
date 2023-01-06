@@ -31,13 +31,15 @@ const SearchForm = () => {
         />
       </div>
       <Divider sx={{ margin: '15px 8px' }} />
-      <TextField
-        id='spaceMin'
-        size='small'
-        placeholder='請輸入額外搜尋條件'
-        className={classes.textField}
-        sx={{ margin: 1 }}
-      />
+      <div className={classes.option__container}>
+        <p className={classes.title}>額外搜尋關鍵字</p>
+        <TextField
+          id='searchName'
+          size='small'
+          className={classes.textField}
+          style={{ marginLeft: '10px' }}
+        />
+      </div>
       <Divider sx={{ margin: '15px 8px' }} />
       <div className={classes.option__container}>
         <p className={classes.title}>
