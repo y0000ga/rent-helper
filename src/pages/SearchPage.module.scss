@@ -1,4 +1,5 @@
 .container {
+  width: 100%;
   border: solid 1px var(--gray);
   margin: 50px 0px;
   border-radius: 10px;
@@ -7,13 +8,26 @@
   background-color: var(--white);
   display: flex;
   flex-direction: column;
-}
-
-.submitBtn {
-  width: 50%;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+  .loadingContainer {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 350px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .loading {
+      animation: loading 1s infinite;
+    }
+  }
+  .emptyMessage {
+    font-size: 5vw;
+    text-align: center;
+    color: var(--gray);
+  }
 }
 
 .searchItem {

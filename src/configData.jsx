@@ -54,8 +54,8 @@ export const newpeiDistData = [
   '烏來區',
 ]
 
-export const type = ['不限', '整層住家', '獨立套房', '分租套房', '雅房']
+export const kind = ['不限', '整層住家', '獨立套房', '分租套房', '雅房']
 
-export const style = ['不限', '公寓', '電梯大樓']
+export const shape = ['不限', '公寓', '電梯大樓']
 
-export const limitation = ['排除頂樓加蓋']
+export const notCover = ['排除頂樓加蓋']

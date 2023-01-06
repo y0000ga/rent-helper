@@ -5,9 +5,9 @@
   transform: translateX(-50%);
 }
 
-
 .option__container {
   display: flex;
+  align-items: center;
   margin: 0 8px;
   .title {
     min-width: 60px;
@@ -17,7 +17,10 @@
       color: var(--blue);
     }
   }
-  
+  .errorMessage {
+    color: var(--red);
+    margin-left: 10px;
+  }
   .options__content {
     display: flex;
     flex-direction: row;

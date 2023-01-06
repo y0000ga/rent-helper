@@ -37,7 +37,7 @@ const CollectPage = () => {
       setTabValue(0)
       housesAllGet()
     }
-  }, [dispatch, isModalShown])
+  }, [dispatch,isModalShown])
 
   const roomList = allRoom.map((data) => <RoomItem data={data} key={data.id} />)
   const allMetHandler = async () => {
@@ -47,7 +47,7 @@ const CollectPage = () => {
     setPage(2)
     setTabValue(1)
   }
-  const notAllMetHanldler = async () => {
+  const notAllMetHandler = async () => {
     const res = await housesAllGetApi({ page: 1, filter: 'notAllMet' })
     const { houses } = res.data
     dispatch(roomActions.getAllHouses(houses))
@@ -91,13 +91,17 @@ const CollectPage = () => {
               value={2}
               label='條件未全符合'
               sx={{ width: '33.3%' }}
-              onClick={notAllMetHanldler}
+              onClick={notAllMetHandler}
             />
           </Tabs>
         </Box>
         <div className={classes.roomItemContainer} id='room__list'>
           {allRoom.length === 0 ? (
-            <p className={classes.emptyMessage}>目前還沒收藏任何物件喔!</p>
+            tabValue === 0 ? (
+              <p className={classes.emptyMessage}>目前還沒收藏任何物件</p>
+            ) : (
+              <p className={classes.emptyMessage}>該分類目前沒有任何物件</p>
+            )
           ) : (
             <InfiniteScroll
               className={classes.infiniteScroll}

@@ -74,7 +74,7 @@
 
 .emptyMessage {
   color: var(--gray);
-  font-size: 60px;
+  font-size: 5vw;
   text-align: center;
   padding: 20px 0px;
 }
@@ -88,11 +88,5 @@
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-@media screen and (max-width: 575px) {
-  .emptyMessage {
-    font-size: 20px;
   }
 }

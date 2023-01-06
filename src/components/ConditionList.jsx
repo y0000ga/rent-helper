@@ -20,7 +20,7 @@ const ConditionList = (props) => {
       <ConditionBlock content={shape} key={shape} />
       <ConditionBlock content={`${minPrice} 到 ${maxPrice}元`} />
       <ConditionBlock content={`${minArea} 到 ${maxArea}坪`} />
-      {notCover !== '' && <ConditionBlock content={notCover} />}
+      {notCover === true && <ConditionBlock content='排除頂樓加蓋' />}
     </div>
   )
 }

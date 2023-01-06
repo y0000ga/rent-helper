@@ -90,6 +90,9 @@ const SettingPage = () => {
           />
         </div>
         <div className={classes.list__container}>
+          {conditions.length === 0 && (
+            <p className={classes.emptyMessage}>目前沒有任何搜尋條件組合</p>
+          )}
           {conditions.map((data) => (
             <ConditionItem data={data} key={data.id} />
           ))}
