@@ -58,4 +58,4 @@ export const kind = ['不限', '整層住家', '獨立套房', '分租套房', '
 
 export const shape = ['不限', '公寓', '電梯大樓']
 
-export const notCover = ['排除頂樓加蓋']
+export const notCoverLimitation = ['排除頂樓加蓋']

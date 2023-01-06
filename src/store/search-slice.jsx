@@ -17,14 +17,15 @@ const initialState = {
   },
   isSearchShown: false,
   isSearchUpdated: false,
+  isEdit: false,
 }
 
 const searchSlice = createSlice({
   name: 'search',
   initialState: initialState,
   reducers: {
-    setIsSearchUpdated(state) {
-      state.isSearchUpdated = !state.isSearchUpdated
+    setIsSearchUpdated(state, action) {
+      state.isSearchUpdated = action.payload
     },
     getAllSearchCollection(state, action) {
       state.searchCollection = action.payload
@@ -69,19 +70,19 @@ const searchSlice = createSlice({
       state.currentSearch.kind = action.payload
     },
     setShape(state, action) {
-      state.currentSearch.kind = action.payload
+      state.currentSearch.shape = action.payload
     },
     setMinPrice(state, action) {
-      state.currentSearch.minPrice = action.payload
+      state.currentSearch.minPrice = Math.round(action.payload)
     },
     setMaxPrice(state, action) {
-      state.currentSearch.maxPrice = action.payload
+      state.currentSearch.maxPrice = Math.round(action.payload)
     },
     setMinArea(state, action) {
-      state.currentSearch.minArea = action.payload
+      state.currentSearch.minArea = Math.round(action.payload)
     },
     setMaxArea(state, action) {
-      state.currentSearch.maxArea = action.payload
+      state.currentSearch.maxArea = Math.round(action.payload)
     },
     setNotCover(state) {
       state.currentSearch.notCover = !state.currentSearch.notCover
@@ -89,6 +90,13 @@ const searchSlice = createSlice({
     clearCurrentSearch(state) {
       state.currentSearch = initialState.currentSearch
     },
+    setCurrentSearch(state, action) {
+      const { targetIndex } = action.payload
+      state.currentSearch = state.searchCollection[targetIndex]
+    },
+    setIsEdit(state,action) {
+      state.isEdit = action.payload
+    }
   },
 })
 

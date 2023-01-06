@@ -14,16 +14,17 @@ import {
   newpeiDistData,
   kind,
   shape,
-  notCover,
+  notCoverLimitation,
 } from '../configData'
 import { useSelector, useDispatch } from 'react-redux'
 import { searchActions } from '../store/search-slice'
-import { searchCreateApi } from '../api/searchApi'
+import { searchCreateApi, searchDeleteApi } from '../api/searchApi'
+import Swal from 'sweetalert2'
 
 const SearchForm = () => {
   const currentSearch = useSelector((state) => state.search.currentSearch)
   const dispatch = useDispatch()
-
+  const isEdit = useSelector((state) => state.search.isEdit)
   return (
     <>
       <div className={classes.option__container}>
@@ -33,6 +34,7 @@ const SearchForm = () => {
         <TextField
           id='searchName'
           size='small'
+          value={currentSearch.name}
           className={classes.textField}
           style={{ marginLeft: '10px' }}
           onChange={(event) => {
@@ -51,6 +53,7 @@ const SearchForm = () => {
           size='small'
           className={classes.textField}
           style={{ marginLeft: '10px' }}
+          value={currentSearch.keyword}
           onChange={(event) => {
             dispatch(searchActions.setKeyword(event.target.value))
           }}
@@ -126,7 +129,7 @@ const SearchForm = () => {
           id='kind'
           label='kind'
           sx={{ width: '150px' }}
-          defaultValue='不限'
+          defaultValue={currentSearch.kind}
         >
           {kind.map((data) => (
             <MenuItem
@@ -151,7 +154,7 @@ const SearchForm = () => {
           id='shape'
           label='shape'
           sx={{ width: '150px' }}
-          defaultValue='不限'
+          defaultValue={currentSearch.shape}
         >
           {shape.map((data) => (
             <MenuItem value={data} key={data === '不限' ? '型態不限' : data}>
@@ -207,6 +210,7 @@ const SearchForm = () => {
             size='small'
             className={classes.textField}
             placeholder='下限'
+            value={currentSearch.minArea}
             onChange={(event) =>
               dispatch(searchActions.setMinArea(Number(event.target.value)))
             }
@@ -218,6 +222,7 @@ const SearchForm = () => {
             size='small'
             className={classes.textField}
             placeholder='上限'
+            value={currentSearch.maxArea}
             onChange={(event) =>
               dispatch(searchActions.setMaxArea(Number(event.target.value)))
             }
@@ -232,19 +237,43 @@ const SearchForm = () => {
       <div className={classes.option__container}>
         <p className={classes.title}>限制</p>
         <FormGroup className={classes.options__content}>
-          {notCover.map((data) => (
-            <FormControlLabel control={<Checkbox />} label={data} key={data} />
-          ))}
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={currentSearch.notCover}
+                onClick={() => {
+                  dispatch(searchActions.setNotCover())
+                }}
+              />
+            }
+            label={notCoverLimitation}
+            key={notCoverLimitation}
+          />
         </FormGroup>
       </div>
       <Button
         variant='contained'
         className={classes.submitBtn}
         onClick={async () => {
-          await searchCreateApi(currentSearch)
+          if (isEdit === true) {
+            await searchDeleteApi({ id: currentSearch.id })
+            dispatch(searchActions.setIsSearchUpdated())
+            dispatch(searchActions.setIsSearchShown(false))
+            return
+          }
+          const res = await searchCreateApi(currentSearch)
+          if (res.status !== 200) {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'warning',
+              title: `${res.data.message}`,
+              showConfirmButton: false,
+              timer: 1500,
+            })
+            return
+          }
           dispatch(searchActions.setIsSearchUpdated())
-          dispatch(searchActions.setIsSearchShown())
-          dispatch(searchActions.clearCurrentSearch())
+          dispatch(searchActions.setIsSearchShown(false))
         }}
       >
         儲存搜尋條件組合

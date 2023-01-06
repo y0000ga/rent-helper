@@ -23,6 +23,7 @@ const SearchPage = () => {
   const token = localStorage.getItem('token')
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
+  const isEdit = useSelector((state) => state.search.isEdit)
   useEffect(() => {
     if (!token) {
       navigate('/login')
@@ -57,14 +58,31 @@ const SearchPage = () => {
               <>
                 {searchCollection.map((data) => (
                   <div className={classes.searchItem} key={data.name}>
-                    <RemoveCircleIcon
-                      className={classes.removeCircleIcon}
-                      onClick={async () => {
-                        await searchDeleteApi({ id: data.id })
-                        dispatch(searchActions.setIsSearchUpdated())
-                      }}
-                    />
-                    <EditIcon className={classes.editIcon} />
+                    {isSearchShown === false && (
+                      <>
+                        <RemoveCircleIcon
+                          className={classes.removeCircleIcon}
+                          onClick={async () => {
+                            await searchDeleteApi({ id: data.id })
+                            dispatch(searchActions.setIsSearchUpdated())
+                          }}
+                        />
+                        <EditIcon
+                          className={classes.editIcon}
+                          onClick={() => {
+                            dispatch(searchActions.setIsEdit(true))
+                            dispatch(searchActions.setIsSearchShown(true))
+                            const targetId = data.id
+                            const targetIndex = searchCollection.findIndex(
+                              (data) => data.id === targetId
+                            )
+                            dispatch(
+                              searchActions.setCurrentSearch({ targetIndex })
+                            )
+                          }}
+                        />
+                      </>
+                    )}
                     <FormControlLabel
                       control={<Checkbox />}
                       label={data.name}
@@ -81,22 +99,38 @@ const SearchPage = () => {
         )}
 
         <div style={{ display: 'flex' }}>
-          <Button
-            variant='contained'
-            sx={{ margin: 1, width: '180px' }}
-            endIcon={<CheckIcon />}
-          >
-            設定條件組合
-          </Button>
+          {isSearchShown === false && (
+            <Button
+              variant='contained'
+              sx={{ margin: 1, width: '180px' }}
+              endIcon={<CheckIcon />}
+            >
+              設定條件組合
+            </Button>
+          )}
           <Button
             variant='outlined'
             sx={{ margin: 1, width: '180px' }}
             onClick={() => {
               dispatch(searchActions.setIsSearchShown())
             }}
-            endIcon={isSearchShown === false ? <AddIcon /> : <CloseIcon />}
+            endIcon={
+              isSearchShown === false ? (
+                <AddIcon
+                  onClick={() => {
+                    dispatch(searchActions.clearCurrentSearch())
+                  }}
+                />
+              ) : (
+                <CloseIcon />
+              )
+            }
           >
-            {isSearchShown === false ? '新增條件組合' : '取消新增條件組合'}
+            {isSearchShown === false
+              ? '新增條件組合'
+              : isEdit === true
+              ? '取消編輯條件組合'
+              : '取消新增條件組合'}
           </Button>
         </div>
 
