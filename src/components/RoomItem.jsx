@@ -1,5 +1,5 @@
 import classes from './RoomItem.module.scss'
-import CloseIcon from '@mui/icons-material/Close'
+import { Close } from '@mui/icons-material'
 import { ConditionBlock, TextButton } from '../UI/Button'
 import RoomDetailModal from '../components/RoomDetailModal'
 import { housesDeleteApi, housesOneGetApi } from '../api/housesApi'
@@ -54,7 +54,7 @@ const RoomItem = (props) => {
     <>
       <div className={classes.roomItem}>
         <div className={classes.pointer}>
-          <CloseIcon onClick={deleteRoomHandler} />
+          <Close onClick={deleteRoomHandler} />
         </div>
         <h3 className={classes.name}>{name}</h3>
         <img src={cover} alt='cover' />
@@ -87,7 +87,7 @@ const RoomItem = (props) => {
             sx={{
               margin: 1,
               cursor: 'default',
-              '&:hover': { backgroundColor: '#D3302F' },
+              '&:hover': { backgroundColor: '#2F7D32' },
             }}
             color={
               isAllMet === 0

@@ -25,7 +25,6 @@ const NavList = () => {
             window.open(link)
             return
           }
-          console.log(message)
         }
 
         navigate(data.pathname)

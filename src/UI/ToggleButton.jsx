@@ -1,8 +1,7 @@
 import { Button } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
-import EditIcon from '@mui/icons-material/Edit'
+import {Close, Edit, Check} from '@mui/icons-material'
 import { useState } from 'react'
-import CheckIcon from '@mui/icons-material/Check'
+
 
 const ToggleButton = (props) => {
   const { content, checked, type } = props
@@ -19,14 +18,14 @@ const ToggleButton = (props) => {
       >
         {isChecked === true ? '有' : '無'}
         {content}
-        <CheckIcon
+        <Check
           sx={{ margin: '0 5px', cursor: 'pointer' }}
           onClick={() => {
             setIsChecked(true)
             setIsEdit(false)
           }}
         />
-        <CloseIcon
+        <Close
           sx={{ margin: '0 5px', cursor: 'pointer' }}
           onClick={() => {
             setIsChecked(false)
@@ -45,7 +44,7 @@ const ToggleButton = (props) => {
       >
         {isChecked === true ? '有' : '無'}
         {content}
-        <EditIcon
+        <Edit
           sx={{ marginLeft: 1, cursor: 'pointer' }}
           onClick={() => {
             setIsEdit(true)

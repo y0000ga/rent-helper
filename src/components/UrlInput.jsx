@@ -1,11 +1,10 @@
 import { TextField } from '@mui/material'
-import AddHomeIcon from '@mui/icons-material/AddHome'
+import {AddHome, Loop} from '@mui/icons-material'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 import { housesCreateApi } from '../api/housesApi'
 import { useDispatch } from 'react-redux'
 import { roomActions } from '../store/room-slice'
-import LoopIcon from '@mui/icons-material/Loop'
 import classes from './UrlInput.module.scss'
 
 const UrlInput = () => {
@@ -60,13 +59,13 @@ const UrlInput = () => {
         }}
       />
       {status === 'finish' ? (
-        <AddHomeIcon
+        <AddHome
           sx={{ cursor: 'pointer', fontSize: '54px' }}
           color='primary'
           onClick={searchHandler}
         />
       ) : (
-        <LoopIcon
+        <Loop
           className={classes.loading}
           sx={{ cursor: 'wait', fontSize: '54px' }}
           color='success'

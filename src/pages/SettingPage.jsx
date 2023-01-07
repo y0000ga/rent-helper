@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TextField } from '@mui/material'
-import AddBoxIcon from '@mui/icons-material/AddBox'
+import { AddBox } from '@mui/icons-material'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 import { conditionCreateApi, conditionGetAllApi } from '../api/ConditionApi'
@@ -83,7 +83,7 @@ const SettingPage = () => {
               setConditionInput(event.target.value)
             }}
           />
-          <AddBoxIcon
+          <AddBox
             sx={{ cursor: 'pointer', fontSize: '54px' }}
             color='primary'
             onClick={addConditionHandler}

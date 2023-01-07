@@ -13,7 +13,7 @@ axiosInstance.interceptors.request.use((config) => {
   return config
 })
 
-// 新增收藏物件 OK
+// 新增收藏物件
 export const housesCreateApi = async (payload) => {
   const { externalId } = payload
   try {

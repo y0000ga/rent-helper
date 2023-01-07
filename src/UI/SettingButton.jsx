@@ -1,13 +1,14 @@
 import { Button } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
-import AddIcon from '@mui/icons-material/Add'
+import { Close, Add } from '@mui/icons-material'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { settingActions } from '../store/setting-slice'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputLabel from '@mui/material/InputLabel'
-import InputAdornment from '@mui/material/InputAdornment'
-import FormControl from '@mui/material/FormControl'
+import {
+  OutlinedInput,
+  InputLabel,
+  InputAdornment,
+  FormControl,
+} from '@mui/material'
 
 const SettingBlock = (props) => {
   const { content, type, math, width, pathname } = props
@@ -53,14 +54,14 @@ const SettingBlock = (props) => {
         >
           {content}
           {math === 'add' ? (
-            <AddIcon
+            <Add
               fontSize='small'
               onClick={() => {
                 setIsEdit(true)
               }}
             />
           ) : (
-            <CloseIcon
+            <Close
               fontSize='small'
               sx={{ marginLeft: 1 }}
               onClick={removeHandler}
@@ -84,7 +85,7 @@ const SettingBlock = (props) => {
             }}
             endAdornment={
               <InputAdornment position='end'>
-                <AddIcon onClick={addHandler} edge='end' />
+                <Add onClick={addHandler} edge='end' />
               </InputAdornment>
             }
             label='增加條件'

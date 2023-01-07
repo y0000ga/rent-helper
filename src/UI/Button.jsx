@@ -1,15 +1,14 @@
-import { Button } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
-import AddIcon from '@mui/icons-material/Add'
-import EditIcon from '@mui/icons-material/Edit'
+import {
+  Button,
+  InputLabel,
+  InputAdornment,
+  FormControl,
+  OutlinedInput,
+} from '@mui/material'
+import { Close, Add, Edit, Check } from '@mui/icons-material'
 import { useState } from 'react'
-import CheckIcon from '@mui/icons-material/Check'
 import { useDispatch } from 'react-redux'
 import { settingActions } from '../store/setting-slice'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputLabel from '@mui/material/InputLabel'
-import InputAdornment from '@mui/material/InputAdornment'
-import FormControl from '@mui/material/FormControl'
 
 export const ConditionBlock = (props) => {
   const { content, type } = props
@@ -69,14 +68,14 @@ export const AdjustBlock = (props) => {
         >
           {content}
           {math === 'add' ? (
-            <AddIcon
+            <Add
               fontSize='small'
               onClick={() => {
                 setIsEdit(true)
               }}
             />
           ) : (
-            <CloseIcon
+            <Close
               fontSize='small'
               sx={{ marginLeft: 1 }}
               onClick={removeHandler}
@@ -100,7 +99,7 @@ export const AdjustBlock = (props) => {
             }}
             endAdornment={
               <InputAdornment position='end'>
-                <AddIcon onClick={addHandler} edge='end' />
+                <Add onClick={addHandler} edge='end' />
               </InputAdornment>
             }
             label='增加條件'
@@ -153,14 +152,14 @@ export const ToggleButton = (props) => {
         >
           {isChecked === true ? '有' : '無'}
           {content}
-          <CheckIcon
+          <Check
             sx={{ margin: '0 5px', cursor: 'pointer' }}
             onClick={() => {
               setIsChecked(true)
               setIsEdit(false)
             }}
           />
-          <CloseIcon
+          <Close
             sx={{ margin: '0 5px', cursor: 'pointer' }}
             onClick={() => {
               setIsChecked(false)
@@ -176,7 +175,7 @@ export const ToggleButton = (props) => {
         >
           {isChecked === true ? '有' : '無'}
           {content}
-          <EditIcon
+          <Edit
             sx={{ marginLeft: 1, cursor: 'pointer' }}
             onClick={() => {
               setIsEdit(true)

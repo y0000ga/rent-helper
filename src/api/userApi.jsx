@@ -24,23 +24,9 @@ export const userSignupApi = async (payload) => {
       checkPassword,
     })
     return res
-    // res.status === 200
-    // res.data = {
-    //   token: 'eyJhbGciOi',
-    //   user: {
-    //     account: 'bbbbbbbbbc',
-    //     createdAt: '2023-01-03T11:23:53.629Z',
-    //     hasLineToken: false,
-    //     id: 14,
-    //     name: 'bbc',
-    //     updatedAt: '2023-01-03T11:23:53.629Z',
-    //   },
-    // }
   } catch (error) {
     console.error('[User Signup Failed]: ', error)
     return error.response
-    // error.response.status === 400
-    // error.response.data.message === '已經註冊過的帳號'
   }
 }
 

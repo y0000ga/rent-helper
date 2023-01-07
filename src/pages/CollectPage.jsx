@@ -9,7 +9,7 @@ import UrlInput from '../components/UrlInput'
 import { housesAllGetApi } from '../api/housesApi'
 import { roomActions } from '../store/room-slice'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import LoopIcon from '@mui/icons-material/Loop'
+import { Loop } from '@mui/icons-material'
 
 const CollectPage = () => {
   const token = localStorage.getItem('token')
@@ -37,7 +37,7 @@ const CollectPage = () => {
       setTabValue(0)
       housesAllGet()
     }
-  }, [dispatch,isModalShown])
+  }, [dispatch, isModalShown])
 
   const roomList = allRoom.map((data) => <RoomItem data={data} key={data.id} />)
   const allMetHandler = async () => {
@@ -110,7 +110,7 @@ const CollectPage = () => {
               hasMore={hasMore !== 0}
               loader={
                 <div className={classes.loadingContainer}>
-                  <LoopIcon
+                  <Loop
                     className={classes.loading}
                     sx={{ cursor: 'wait', fontSize: '54px' }}
                     color='success'

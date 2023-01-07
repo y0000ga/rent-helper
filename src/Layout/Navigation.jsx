@@ -3,7 +3,7 @@ import logo from '../assets/icons/logo.svg'
 import useRWD from '../hooks/useRWD'
 import { useEffect, useState } from 'react'
 import NavList from './NavList'
-import MenuIcon from '@mui/icons-material/Menu'
+import { Menu } from '@mui/icons-material'
 
 const Navigation = () => {
   const [isNavShown, setIsNavShown] = useState(false)
@@ -30,7 +30,7 @@ const Navigation = () => {
             setIsNavShown(!isNavShown)
           }}
         >
-          <MenuIcon fontSize='large' />
+          <Menu fontSize='large' />
         </div>
       ) : (
         <ul className={classes.navList}>

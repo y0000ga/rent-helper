@@ -1,14 +1,16 @@
 import classes from './RoomDetailModal.module.scss'
-import Backdrop from '@mui/material/Backdrop'
+import {
+  Backdrop,
+  Pagination,
+  Button,
+  ButtonGroup,
+  TextField,
+  Divider
+} from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import Pagination from '@mui/material/Pagination'
 import ExpenseButton from '../UI/ExpenseButton'
-import Button from '@mui/material/Button'
-import ButtonGroup from '@mui/material/ButtonGroup'
-import { TextField } from '@mui/material'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import Divider from '@mui/material/Divider'
 import { ConditionBlock } from '../UI/Button'
 import { housesEditCommentApi } from '../api/housesApi'
 import { roomActions } from '../store/room-slice'

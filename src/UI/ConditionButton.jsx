@@ -1,8 +1,6 @@
-import Button from '@mui/material/Button'
+import { Button } from '@mui/material'
 import { useState } from 'react'
-import CloseIcon from '@mui/icons-material/Close'
-import CheckIcon from '@mui/icons-material/Check'
-import EditIcon from '@mui/icons-material/Edit'
+import { Close, Check, Edit } from '@mui/icons-material'
 import { useSelector, useDispatch } from 'react-redux'
 import { meetApi, notMeetApi } from '../api/MeetApi'
 import { roomActions } from '../store/room-slice'
@@ -49,7 +47,7 @@ const ConditionButton = (props) => {
           <Button color='error' onClick={isNotMetHandler}>
             不符合
           </Button>
-          <CloseIcon
+          <Close
             onClick={() => {
               setIsEdit(false)
             }}
@@ -63,9 +61,9 @@ const ConditionButton = (props) => {
           sx={{ margin: 1, cursor: 'default' }}
         >
           {meetId !== null ? (
-            <CheckIcon sx={{ margin: '0px 10px' }} />
+            <Check sx={{ margin: '0px 10px' }} />
           ) : (
-            <CloseIcon
+            <Close
               sx={{ margin: '0px 10px' }}
               onClick={() => {
                 dispatch(roomActions.test())
@@ -73,7 +71,7 @@ const ConditionButton = (props) => {
             />
           )}
           {name}
-          <EditIcon
+          <Edit
             sx={{ margin: '0px 10px', cursor: 'pointer' }}
             onClick={() => {
               setIsEdit(true)
