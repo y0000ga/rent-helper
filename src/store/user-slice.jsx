@@ -29,6 +29,9 @@ const userSlice = createSlice({
     setHasLineToken(state) {
       state.hasLineToken = true
     },
+    clearUserInfo(state) {
+      state = initialState
+    },
   },
 })
 

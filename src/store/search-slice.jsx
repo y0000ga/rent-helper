@@ -92,12 +92,21 @@ const searchSlice = createSlice({
     },
     setCurrentSearch(state, action) {
       const { id } = action.payload
-      const targetIndex = state.searchCollection.findIndex((data) => data.id === id)
+      const targetIndex = state.searchCollection.findIndex(
+        (data) => data.id === id
+      )
       state.currentSearch = state.searchCollection[targetIndex]
     },
-    setIsEdit(state,action) {
+    setIsEdit(state, action) {
       state.isEdit = action.payload
-    }
+    },
+    clearSearchInfo(state) {
+      state.searchCollection = initialState.searchCollection
+      state.currentSearch = initialState.currentSearch
+      state.isSearchShown = initialState.isSearchShown
+      state.isSearchUpdated = initialState.isSearchUpdated
+      state.isEdit = initialState.isEdit
+    },
   },
 })
 

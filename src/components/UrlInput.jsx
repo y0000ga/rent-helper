@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material'
-import {AddHome, Loop} from '@mui/icons-material'
+import { AddHome, Loop } from '@mui/icons-material'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 import { housesCreateApi } from '../api/housesApi'
@@ -10,11 +10,38 @@ import classes from './UrlInput.module.scss'
 const UrlInput = () => {
   const dispatch = useDispatch()
   const [houseUrl, setHouseUrl] = useState('')
+  const [externalId, setExternalId] = useState('')
   const [status, setStatus] = useState('finish')
+  const isMobileHouseUrlValid = houseUrl.includes(
+    'https://m.591.com.tw/v2/rent/'
+  )
+  const isWebSiteHouseUrlValid = houseUrl.includes(
+    'https://rent.591.com.tw/home/'
+  )
   const searchHandler = async () => {
-
-    const externalId = houseUrl.replace('https://rent.591.com.tw/home/', '')
+    if (!isMobileHouseUrlValid && !isWebSiteHouseUrlValid) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '物件網址格式錯誤',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+      return
+    }
+    if (houseUrl.includes('https://m.591.com.tw/v2/rent/')) {
+      setExternalId(houseUrl.replace('https://m.591.com.tw/v2/rent/', ''))
+    } else {
+      setExternalId(houseUrl.replace('https://rent.591.com.tw/home/', ''))
+    }
     if (externalId.length !== 8) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '物件網址格式錯誤',
+        showConfirmButton: false,
+        timer: 1500,
+      })
       return
     }
     setStatus('loading')

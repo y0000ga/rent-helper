@@ -64,6 +64,11 @@ const roomSlice = createSlice({
       )
       state.currentRoom.conditions[existedIndex].meetId = null
     },
+    clearRoomInfo(state) {
+      state.allRoom = initialState.allRoom
+      state.currentRoom = initialState.currentRoom
+      state.isModalShown = initialState.isModalShown
+    }
   },
 })
 

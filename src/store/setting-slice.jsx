@@ -20,6 +20,9 @@ const settingSlice = createSlice({
       const { id } = action.payload
       state.conditions = state.conditions.filter((data) => data.id !== id)
     },
+    clearSettingInfo(state) {
+      state.conditions = []
+    },
   },
 })
 

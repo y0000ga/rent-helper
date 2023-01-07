@@ -1,9 +1,14 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { navItemData } from '../configData'
-import { useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { lineAuthGetApi } from '../api/lineAuthApi'
+import { roomActions } from '../store/room-slice'
+import { settingActions } from '../store/setting-slice'
+import { searchActions } from '../store/search-slice'
+import { userActions } from '../store/user-slice'
 
 const NavList = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const currentPathname = useLocation().pathname
   const navItems = navItemData.map((data) => (
@@ -14,6 +19,10 @@ const NavList = () => {
       }}
       onClick={async () => {
         if (data.title === '登出') {
+          dispatch(roomActions.clearRoomInfo())
+          dispatch(settingActions.clearSettingInfo())
+          dispatch(searchActions.clearSearchInfo())
+          dispatch(userActions.clearUserInfo())
           localStorage.clear()
           navigate(data.pathname)
           return
