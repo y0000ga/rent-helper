@@ -51,11 +51,11 @@ const roomSlice = createSlice({
       state.allRoom[existedItem].comment = comment
     },
     meetCondition(state, action) {
-      const { meetId, ConditionId } = action.payload
+      const { id, ConditionId } = action.payload
       const existedIndex = state.currentRoom.conditions.findIndex(
         (data) => data.id === ConditionId
       )
-      state.currentRoom.conditions[existedIndex].meetId = meetId
+      state.currentRoom.conditions[existedIndex].meetId = id
     },
     notMeetCondition(state, action) {
       const { ConditionId } = action.payload

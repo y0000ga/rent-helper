@@ -2,7 +2,6 @@ import classes from './RoomItem.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 import { ConditionBlock, TextButton } from '../UI/Button'
 import RoomDetailModal from '../components/RoomDetailModal'
-import { useState } from 'react'
 import { housesDeleteApi, housesOneGetApi } from '../api/housesApi'
 import { useDispatch, useSelector } from 'react-redux'
 import { roomActions } from '../store/room-slice'
@@ -67,8 +66,13 @@ const RoomItem = (props) => {
           <ConditionBlock content={`${price}元`} />
           <ConditionBlock content={shape} />
           <Button
+            disableRipple
             variant='contained'
-            sx={{ margin: 1 }}
+            sx={{
+              margin: 1,
+              cursor: 'default',
+              '&:hover': { backgroundColor: '#ED6D03' },
+            }}
             color='warning'
           >{`額外支出 ${
             extraExpenses === undefined
@@ -78,8 +82,13 @@ const RoomItem = (props) => {
               : extraExpenses
           }  元`}</Button>
           <Button
+            disableRipple
             variant='contained'
-            sx={{ margin: 1 }}
+            sx={{
+              margin: 1,
+              cursor: 'default',
+              '&:hover': { backgroundColor: '#D3302F' },
+            }}
             color={
               isAllMet === 0
                 ? 'error'

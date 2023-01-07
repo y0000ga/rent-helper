@@ -46,6 +46,7 @@ const RoomDetailModal = (props) => {
     dispatch(roomActions.editComment(res.data.house))
     closeModal()
   }
+ 
   return (
     <Backdrop
       sx={{
@@ -82,11 +83,11 @@ const RoomDetailModal = (props) => {
             />
           </div>
           <div className={classes.conditionList}>
-            <ConditionBlock content={area} />
-            <ConditionBlock content={region} />
-            <ConditionBlock content={section} />
-            <ConditionBlock content={kind} />
-            <ConditionBlock content={shape} />
+            <ConditionBlock content={area} key='area'/>
+            <ConditionBlock content={region} key='region'/>
+            <ConditionBlock content={section} key='section'/>
+            <ConditionBlock content={kind} key='kind' />
+            <ConditionBlock content={shape} key='shape' />
             {ServicedFacilities.map((data) => (
               <ConditionBlock content={data.name} key={data.id} />
             ))}
@@ -105,7 +106,7 @@ const RoomDetailModal = (props) => {
               <ExpenseButton data={data} type='addiExpen' key={data.id} />
             ))}
           </div>
-          <ExpenseButton content='新增' type='addiExpen' math='add' />
+          <ExpenseButton content='新增' type='addiExpen' math='add' key='add'/>
           <p className={classes.title}>自定義條件</p>
           <div className={classes.conditionList}>
             {conditions.map((data) => (

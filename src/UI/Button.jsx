@@ -12,9 +12,18 @@ import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
 
 export const ConditionBlock = (props) => {
-  const { content,type } = props
+  const { content, type } = props
   return (
-    <Button variant='contained' sx={{ margin: 1, cursor: 'default' }} color={type === 'error' ? 'error': 'primary'}>
+    <Button
+      variant='contained'
+      disableRipple
+      sx={{
+        margin: 1,
+        cursor: 'default',
+        '&:hover': { backgroundColor: '#1876D2' },
+      }}
+      color={type === 'error' ? 'error' : 'primary'}
+    >
       {content}
       {props.children}
     </Button>

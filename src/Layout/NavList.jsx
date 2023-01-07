@@ -20,9 +20,14 @@ const NavList = () => {
         }
         if (data.title === '搜尋') {
           const res = await lineAuthGetApi()
-          window.open(res.data.link)
-          return
+          const { link, message } = res.data
+          if (message === undefined) {
+            window.open(link)
+            return
+          }
+          console.log(message)
         }
+
         navigate(data.pathname)
       }}
     >

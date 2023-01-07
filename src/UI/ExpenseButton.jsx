@@ -47,7 +47,7 @@ const ExpenseButton = (props) => {
           <FormControl
             sx={{ margin: 1, width: '100%' }}
             variant='outlined'
-            color='error'
+            color='warning'
             size='small'
           >
             <InputLabel htmlFor='add'>額外支出</InputLabel>
@@ -74,7 +74,7 @@ const ExpenseButton = (props) => {
           <FormControl
             sx={{ m: 1 }}
             variant='outlined'
-            color='error'
+            color='warning'
             size='small'
           >
             <InputLabel htmlFor='add'>金額</InputLabel>
@@ -136,7 +136,7 @@ const ExpenseButton = (props) => {
         <Button
           variant={math === 'add' ? 'outlined' : 'contained'}
           sx={{ margin: 1, width: `${width}` }}
-          color='error'
+          color='warning'
         >
           {math === 'add' ? '新增' : `${data.name} (${data.price} 元)`}
           {math === 'add' ? (

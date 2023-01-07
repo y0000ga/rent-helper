@@ -1,6 +1,5 @@
 import classes from './ConditionItem.module.scss'
-import CancelIcon from '@mui/icons-material/Cancel'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import { Cancel, ArrowRight } from '@mui/icons-material'
 import Swal from 'sweetalert2'
 import { conditionRemoveApi } from '../api/ConditionApi'
 import { useDispatch } from 'react-redux'
@@ -16,8 +15,8 @@ const ConditionItem = (props) => {
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: '取消',
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#1876D2',
+      cancelButtonColor: '#D3302F',
       confirmButtonText: '刪除',
     })
     if (result.isConfirmed) {
@@ -28,10 +27,10 @@ const ConditionItem = (props) => {
   return (
     <li className={classes.li}>
       <div className={classes.li__separator}>
-        <ArrowRightIcon />
+        <ArrowRight />
         {name}
       </div>
-      <CancelIcon
+      <Cancel
         color='error'
         onClick={removeConditionHandler}
         sx={{ cursor: 'pointer' }}

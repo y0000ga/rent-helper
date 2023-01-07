@@ -26,6 +26,9 @@ const userSlice = createSlice({
     setMessage(state, action) {
       state.message = action.payload
     },
+    setHasLineToken(state) {
+      state.hasLineToken = true
+    },
   },
 })
 

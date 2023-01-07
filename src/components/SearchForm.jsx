@@ -18,13 +18,84 @@ import {
 } from '../configData'
 import { useSelector, useDispatch } from 'react-redux'
 import { searchActions } from '../store/search-slice'
-import { searchCreateApi, searchDeleteApi } from '../api/searchApi'
+import { searchCreateApi, searchEditApi } from '../api/searchApi'
 import Swal from 'sweetalert2'
+import { errorMessages } from '../configData'
 
 const SearchForm = () => {
   const currentSearch = useSelector((state) => state.search.currentSearch)
   const dispatch = useDispatch()
   const isEdit = useSelector((state) => state.search.isEdit)
+  const isNameValid =
+    currentSearch.name.trim().length < 20 &&
+    currentSearch.name.trim().length > 1
+
+  const isKeywordValid = currentSearch.keyword.trim().length < 20
+  const isSectionsValid =
+    currentSearch.sections.length > 1 && currentSearch.sections.length <= 5
+  const isPriceValid =
+    currentSearch.maxPrice > 0 &&
+    currentSearch.minPrice > 0 &&
+    currentSearch.maxPrice <= 50000 &&
+    currentSearch.maxPrice > currentSearch.minPrice
+
+  const isAreaValid =
+    currentSearch.maxArea > 0 &&
+    currentSearch.minArea > 0 &&
+    currentSearch.maxArea <= 50 &&
+    currentSearch.maxArea > currentSearch.minArea
+
+  const submitErrorMessage = `${
+    !isNameValid ? '條件組合名稱欄位、' : ''
+  }${!isKeywordValid ? '其他關鍵字欄位、' : ''}${
+    !isSectionsValid ? '位置欄位、' : ''
+  }${!isPriceValid ? '租金欄位、' : ''}${
+    !isAreaValid ? '坪數欄位、' : ''
+  }`.replace(/.$/, '')
+
+  const submitFormHandler = async () => {
+    if (
+      (isNameValid &&
+        isKeywordValid &&
+        isSectionsValid &&
+        isPriceValid &&
+        isAreaValid) === false
+    ) {
+      Swal.fire({
+        icon: 'warning',
+        title: '請重新確認以下欄位是否有誤',
+        text: `${submitErrorMessage}`,
+      })
+      return
+    }
+    if (isEdit === true) {
+      await searchEditApi(currentSearch)
+      dispatch(searchActions.setIsSearchUpdated())
+      dispatch(searchActions.setIsSearchShown(false))
+      dispatch(searchActions.setIsEdit(false))
+      return
+    }
+    const res = await searchCreateApi(currentSearch)
+    if (res.status !== 200) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'warning',
+        title: `${res.data.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    } else {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'warning',
+        title: '條件組合新增成功',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    }
+    dispatch(searchActions.setIsSearchShown(false))
+    dispatch(searchActions.setIsSearchUpdated())
+  }
   return (
     <>
       <div className={classes.option__container}>
@@ -42,7 +113,7 @@ const SearchForm = () => {
           }}
         />
         {currentSearch.name.trim().length > 20 && (
-          <p className={classes.errorMessage}>字數限制 1 - 20 字</p>
+          <p className={classes.errorMessage}>{errorMessages.name}</p>
         )}
       </div>
       <Divider sx={{ margin: '15px 8px' }} />
@@ -59,7 +130,7 @@ const SearchForm = () => {
           }}
         />
         {currentSearch.keyword.trim().length > 20 && (
-          <p className={classes.errorMessage}>字數限制 1 - 20 字</p>
+          <p className={classes.errorMessage}>{errorMessages.keyword}</p>
         )}
       </div>
       <Divider sx={{ margin: '15px 8px' }} />
@@ -86,6 +157,9 @@ const SearchForm = () => {
           >
             新北市
           </Button>
+          {currentSearch.sections.length === 5 && (
+            <p className={classes.errorMessage}>{errorMessages.sections}</p>
+          )}
           <div>
             {currentSearch.region === '台北市'
               ? taipeiDistData.map((data) => (
@@ -121,9 +195,7 @@ const SearchForm = () => {
       </div>
       <Divider sx={{ margin: '15px 8px' }} />
       <div className={classes.option__container}>
-        <p className={classes.title}>
-          類型<span className={classes.highlight}> *</span>
-        </p>
+        <p className={classes.title}>類型</p>
         <Select
           labelId='kind'
           id='kind'
@@ -146,9 +218,7 @@ const SearchForm = () => {
       </div>
       <Divider sx={{ margin: '15px 8px' }} />
       <div className={classes.option__container}>
-        <p className={classes.title}>
-          型態<span className={classes.highlight}> *</span>
-        </p>
+        <p className={classes.title}>型態</p>
         <Select
           labelId='shape'
           id='shape'
@@ -193,9 +263,18 @@ const SearchForm = () => {
             }
           />
           <p>元</p>
-          {(currentSearch.maxPrice < 0 || currentSearch.minPrice < 0) && (
-            <p className={classes.errorMessage}>坪數設定不得為負值</p>
-          )}
+          <br />
+          <div>
+            {currentSearch.maxPrice < currentSearch.minPrice && (
+              <p className={classes.errorMessage}>{errorMessages.minPrice}</p>
+            )}
+            {(currentSearch.maxPrice < 0 || currentSearch.minPrice < 0) && (
+              <p className={classes.errorMessage}>{errorMessages.number}</p>
+            )}
+            {currentSearch.maxPrice > 50000 && (
+              <p className={classes.errorMessage}>{errorMessages.maxPrice}</p>
+            )}
+          </div>
         </FormGroup>
       </div>
       <Divider sx={{ margin: '15px 8px' }} />
@@ -228,9 +307,17 @@ const SearchForm = () => {
             }
           />
           <p>坪</p>
-          {(currentSearch.maxArea < 0 || currentSearch.minArea < 0) && (
-            <p className={classes.errorMessage}>坪數設定不得為負值</p>
-          )}
+          <div>
+            {currentSearch.maxArea < currentSearch.minArea && (
+              <p className={classes.errorMessage}>{errorMessages.minArea}</p>
+            )}
+            {(currentSearch.maxArea < 0 || currentSearch.minArea < 0) && (
+              <p className={classes.errorMessage}>{errorMessages.number}</p>
+            )}
+            {currentSearch.maxArea > 50 && (
+              <p className={classes.errorMessage}>{errorMessages.maxArea}</p>
+            )}
+          </div>
         </FormGroup>
       </div>
       <Divider sx={{ margin: '15px 8px' }} />
@@ -254,27 +341,7 @@ const SearchForm = () => {
       <Button
         variant='contained'
         className={classes.submitBtn}
-        onClick={async () => {
-          if (isEdit === true) {
-            await searchDeleteApi({ id: currentSearch.id })
-            dispatch(searchActions.setIsSearchUpdated())
-            dispatch(searchActions.setIsSearchShown(false))
-            return
-          }
-          const res = await searchCreateApi(currentSearch)
-          if (res.status !== 200) {
-            Swal.fire({
-              position: 'top-end',
-              icon: 'warning',
-              title: `${res.data.message}`,
-              showConfirmButton: false,
-              timer: 1500,
-            })
-            return
-          }
-          dispatch(searchActions.setIsSearchUpdated())
-          dispatch(searchActions.setIsSearchShown(false))
-        }}
+        onClick={submitFormHandler}
       >
         儲存搜尋條件組合
       </Button>

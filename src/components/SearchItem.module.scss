@@ -1,0 +1,25 @@
+.searchItem {
+  position: relative;
+  .icon__removeCircle,
+  .icon__edit {
+    position: absolute;
+    top: 8px;
+    cursor: pointer;
+  }
+  .icon__removeCircle {
+    right: 8px;
+    &:hover {
+      color: var(--red);
+    }
+  }
+  .icon__edit {
+    right: 40px;
+    &:hover {
+      color: var(--blue);
+    }
+  }
+  .subtitle {
+    margin: 0px 8px;
+    font-weight: 700;
+  }
+}

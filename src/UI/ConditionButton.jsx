@@ -12,6 +12,7 @@ const ConditionButton = (props) => {
   const dispatch = useDispatch()
   const currentRoom = useSelector((state) => state.room.currentRoom)
   const [isEdit, setIsEdit] = useState(false)
+
   const isMetHandler = async () => {
     if (meetId !== null) {
       setIsEdit(false)

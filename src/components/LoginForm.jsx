@@ -9,7 +9,6 @@ import Swal from 'sweetalert2'
 
 const LoginForm = () => {
   const navigate = useNavigate()
-
   const validate = yup.object({
     account: yup
       .string()

@@ -9,9 +9,9 @@ const initialState = {
     sections: [],
     kind: '不限',
     shape: '不限',
-    minPrice: '',
+    minPrice: 0,
     maxPrice: '',
-    minArea: '',
+    minArea: 0,
     maxArea: '',
     notCover: false,
   },
@@ -24,8 +24,8 @@ const searchSlice = createSlice({
   name: 'search',
   initialState: initialState,
   reducers: {
-    setIsSearchUpdated(state, action) {
-      state.isSearchUpdated = action.payload
+    setIsSearchUpdated(state) {
+      state.isSearchUpdated = !state.isSearchUpdated
     },
     getAllSearchCollection(state, action) {
       state.searchCollection = action.payload
@@ -91,7 +91,8 @@ const searchSlice = createSlice({
       state.currentSearch = initialState.currentSearch
     },
     setCurrentSearch(state, action) {
-      const { targetIndex } = action.payload
+      const { id } = action.payload
+      const targetIndex = state.searchCollection.findIndex((data) => data.id === id)
       state.currentSearch = state.searchCollection[targetIndex]
     },
     setIsEdit(state,action) {

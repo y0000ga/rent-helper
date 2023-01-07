@@ -8,6 +8,18 @@
   background-color: var(--white);
   display: flex;
   flex-direction: column;
+  .memoContainer {
+    margin: 0px 8px;
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 10px 0px;
+    }
+    .memo {
+      letter-spacing: 1px;
+      margin: 5px 0px;
+    }
+  }
   .loadingContainer {
     position: relative;
     left: 50%;
@@ -27,27 +39,5 @@
     font-size: 5vw;
     text-align: center;
     color: var(--gray);
-  }
-}
-
-.searchItem {
-  position: relative;
-  .editIcon {
-    position: absolute;
-    top: 8px;
-    right: 40px;
-    cursor: pointer;
-    &:hover {
-      color: var(--blue);
-    }
-  }
-  .removeCircleIcon {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    cursor: pointer;
-    &:hover {
-      color: var(--red);
-    }
   }
 }
