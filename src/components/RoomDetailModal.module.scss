@@ -58,3 +58,7 @@
 .textField {
   width: calc(100% - 10px);
 }
+
+.errorMessage {
+  color: var(--red);
+}

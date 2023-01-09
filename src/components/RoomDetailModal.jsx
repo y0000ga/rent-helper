@@ -5,7 +5,7 @@ import {
   Button,
   ButtonGroup,
   TextField,
-  Divider
+  Divider,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import ExpenseButton from '../UI/ExpenseButton'
@@ -37,6 +37,7 @@ const RoomDetailModal = (props) => {
   } = house
   const [commentInput, setCommentInput] = useState(comment)
   const [imgShownIndex, setImgShownIndex] = useState(1)
+  const isCommentInputValid = commentInput.trim().length <= 200
   const changeImgHandler = (
     event: React.ChangeEvent<unknown>,
     value: number
@@ -44,11 +45,14 @@ const RoomDetailModal = (props) => {
     setImgShownIndex(value)
   }
   const saveDataHandler = async () => {
+    if (!isCommentInputValid) {
+      return
+    }
     const res = await housesEditCommentApi({ id, comment: commentInput })
     dispatch(roomActions.editComment(res.data.house))
     closeModal()
   }
- 
+
   return (
     <Backdrop
       sx={{
@@ -85,9 +89,9 @@ const RoomDetailModal = (props) => {
             />
           </div>
           <div className={classes.conditionList}>
-            <ConditionBlock content={area} key='area'/>
-            <ConditionBlock content={region} key='region'/>
-            <ConditionBlock content={section} key='section'/>
+            <ConditionBlock content={area} key='area' />
+            <ConditionBlock content={region} key='region' />
+            <ConditionBlock content={section} key='section' />
             <ConditionBlock content={kind} key='kind' />
             <ConditionBlock content={shape} key='shape' />
             {ServicedFacilities.map((data) => (
@@ -108,7 +112,14 @@ const RoomDetailModal = (props) => {
               <ExpenseButton data={data} type='addiExpen' key={data.id} />
             ))}
           </div>
-          <ExpenseButton content='新增' type='addiExpen' math='add' key='add'/>
+          {Expenses.length < 10 && (
+            <ExpenseButton
+              content='新增'
+              type='addiExpen'
+              math='add'
+              key='add'
+            />
+          )}
           <p className={classes.title}>自定義條件</p>
           <div className={classes.controlList}>
             {conditions.map((data) => (
@@ -120,7 +131,7 @@ const RoomDetailModal = (props) => {
             id='note'
             multiline
             rows={4}
-            placeholder='請輸入註記'
+            placeholder='請輸入評論'
             sx={{ margin: 1 }}
             className={classes.textField}
             value={commentInput}
@@ -128,6 +139,9 @@ const RoomDetailModal = (props) => {
               setCommentInput(event.target.value)
             }}
           />
+          {!isCommentInputValid && (
+            <p className={classes.errorMessage}>評論字數不得超過 200 字</p>
+          )}
           <ButtonGroup
             variant='contained'
             sx={{ margin: 1 }}

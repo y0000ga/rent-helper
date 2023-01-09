@@ -20,7 +20,7 @@ const SignupForm = () => {
       .string()
       .trim()
       .min(8, '帳號長度不得小於 8')
-      .max(30, '帳號長度不得超過 30')
+      .max(20, '帳號長度不得超過 20')
       .required('帳號欄位不得為空'),
     password: yup
       .string()
@@ -31,7 +31,7 @@ const SignupForm = () => {
       .matches(/[A-Z]/, '密碼須包含一個大寫字母')
       .matches(/[^\w]/, '密碼須包含一個符號')
       .min(8, '密碼長度不得小於 8')
-      .max(30, '密碼長度不得超過 30'),
+      .max(20, '密碼長度不得超過 20'),
     checkPassword: yup
       .string()
       .oneOf([yup.ref('password')], '與密碼不同')
