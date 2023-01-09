@@ -89,7 +89,7 @@ const SearchForm = () => {
       setIsLoading(false)
       Swal.fire({
         position: 'top-end',
-        icon: 'warning',
+        icon: 'success',
         title: '條件組合新增成功',
         showConfirmButton: false,
         timer: 1500,
