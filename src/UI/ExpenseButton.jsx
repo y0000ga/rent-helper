@@ -138,7 +138,7 @@ const ExpenseButton = (props) => {
           sx={{ margin: 1, width: `${width}` }}
           color='warning'
           onClick={() => {
-            if (isEdit === false) {
+            if (isEdit === false && math === 'add') {
               setIsEdit(true)
             }
           }}
