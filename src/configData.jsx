@@ -1,4 +1,4 @@
-export const baseURL = 'https://412e-223-136-148-157.jp.ngrok.io/api/'
+export const baseURL = 'https://rent-helper.herokuapp.com/api/'
 
 export const navItemData = [
   { title: '搜尋', pathname: '/search' },

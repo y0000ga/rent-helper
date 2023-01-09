@@ -33,3 +33,27 @@
     }
   }
 }
+
+.loadingContainer {
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  .loading {
+    animation: loading 1s infinite;
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

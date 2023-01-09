@@ -7,7 +7,6 @@ const axiosInstance = axios.create({ baseURL: lineAuthURL })
 
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
-  config.headers['ngrok-skip-browser-warning'] = 'any'
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`
   }

@@ -6,7 +6,6 @@ const conditionURL = `${baseURL}conditions`
 const axiosInstance = axios.create({ baseURL: conditionURL })
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
-  config.headers['ngrok-skip-browser-warning'] = 'any'
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`
   }

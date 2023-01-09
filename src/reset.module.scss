@@ -1,12 +1,18 @@
 html {
   box-sizing: border-box;
   color: var(--black);
-  background-color: rgba(24, 118, 210, 0.1);;
+  background-color: rgba(24, 118, 210, 0.1);
 }
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100vh;
+  max-height: -webkit-fill-available;
 }
 
 body,
@@ -39,4 +45,3 @@ h5 {
   font-size: 18px;
   font-weight: bold;
 }
-

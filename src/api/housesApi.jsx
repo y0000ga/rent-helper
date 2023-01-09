@@ -6,7 +6,6 @@ const housesURL = `${baseURL}houses`
 const axiosInstance = axios.create({ baseURL: housesURL })
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
-  config.headers['ngrok-skip-browser-warning'] = 'any'
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`
   }

@@ -103,14 +103,14 @@ const RoomDetailModal = (props) => {
             variant='middle'
           />
           <p className={classes.title}>額外支出</p>
-          <div className={classes.conditionList}>
+          <div className={classes.controlList}>
             {Expenses.map((data) => (
               <ExpenseButton data={data} type='addiExpen' key={data.id} />
             ))}
           </div>
           <ExpenseButton content='新增' type='addiExpen' math='add' key='add'/>
           <p className={classes.title}>自定義條件</p>
-          <div className={classes.conditionList}>
+          <div className={classes.controlList}>
             {conditions.map((data) => (
               <ConditionButton data={data} key={data.id} />
             ))}

@@ -42,11 +42,15 @@
         z-index: 1;
       }
     }
-    
+
     .conditionList {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+    }
+    .controlList {
+      width: 100%;
+      display: grid;
     }
   }
 }
@@ -54,6 +58,3 @@
 .textField {
   width: calc(100% - 10px);
 }
-
-
-

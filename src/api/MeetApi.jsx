@@ -6,7 +6,6 @@ const meetURL = `${baseURL}meets`
 const axiosInstance = axios.create({ baseURL: meetURL })
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
-  config.headers['ngrok-skip-browser-warning'] = 'any'
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`
   }
