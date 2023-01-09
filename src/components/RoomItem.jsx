@@ -87,7 +87,7 @@ const RoomItem = (props) => {
             sx={{
               margin: 1,
               cursor: 'default',
-              '&:hover': { backgroundColor: '#D3302F' },
+              '&:hover': { backgroundColor: `${isAllMet === 0 ? '#D3302F' : '#2F7D32'}` },
             }}
             color={
               isAllMet === 0

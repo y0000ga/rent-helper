@@ -137,15 +137,15 @@ const ExpenseButton = (props) => {
           variant={math === 'add' ? 'outlined' : 'contained'}
           sx={{ margin: 1, width: `${width}` }}
           color='warning'
+          onClick={() => {
+            if (isEdit === false) {
+              setIsEdit(true)
+            }
+          }}
         >
           {math === 'add' ? '新增' : `${data.name} (${data.price} 元)`}
           {math === 'add' ? (
-            <Add
-              fontSize='small'
-              onClick={() => {
-                setIsEdit(true)
-              }}
-            />
+            <Add fontSize='small' />
           ) : (
             <Close
               fontSize='small'
