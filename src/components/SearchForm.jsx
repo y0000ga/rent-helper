@@ -107,7 +107,7 @@ const SearchForm = () => {
             sx={{ cursor: 'wait', fontSize: '54px' }}
             color='success'
           />
-          儲存搜尋條件組合中...
+          儲存搜尋條件組合中
         </div>
       ) : (
         <>

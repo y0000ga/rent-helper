@@ -15,9 +15,12 @@
       font-weight: 700;
       margin: 10px 0px;
     }
-    .memo {
-      letter-spacing: 1px;
-      margin: 5px 0px;
+    ul {
+      margin-left: 16px;
+      .memo {
+        letter-spacing: 1px;
+        margin: 5px 0px;
+      }
     }
   }
   .loadingContainer {

@@ -82,11 +82,13 @@ const SearchPage = () => {
       <div className={classes.container}>
         <div className={classes.memoContainer}>
           <div className={classes.title}>給使用者的提醒</div>
-          {memos.map((data, index) => (
-            <div className={classes.memo} key={data}>
-              {index + 1}. {data}
-            </div>
-          ))}
+          <ul>
+            {memos.map((data) => (
+              <li className={classes.memo} key={data}>
+                {data}
+              </li>
+            ))}
+          </ul>
         </div>
         <Divider sx={{ margin: '15px 8px' }} />
         {isLoading === true ? (
