@@ -37,9 +37,9 @@ export const newpeiDistData = [
   '林口區',
 ]
 
-export const kind = ['不限', '整層住家', '獨立套房', '分租套房', '雅房']
+export const kind = ['不限', '整層住家', '獨立套房', '分租套房', '雅房', '車位', '其他']
 
-export const shape = ['不限', '公寓', '電梯大樓']
+export const shape = ['不限', '公寓', '電梯大樓', '透天厝', '別墅']
 
 export const notCoverLimitation = ['排除頂樓加蓋']
 
