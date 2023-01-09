@@ -32,7 +32,7 @@ Rent Helper 租屋小幫手是一個使用 React.js 與 Material UI 等工具所
 
 1. 使用者可於搜尋頁面建立搜尋條件組合
 2. 僅支援台北市/新北市部分行政區、月租 50000 以下與坪數50坪以下
-3. 新增搜尋條件組合後 30 分鐘，若以將 Line 與帳號連結，則可於 Line Notify 收到與其相符的物件資訊
+3. 新增搜尋條件組合後 20 分鐘，若以將 Line 與帳號連結，則可於 Line Notify 收到與其相符的物件資訊
 
 ![image](https://user-images.githubusercontent.com/111579529/211322553-111c46ff-cae8-4613-a674-1eba323c2d2f.png)
 
@@ -40,10 +40,10 @@ Rent Helper 租屋小幫手是一個使用 React.js 與 Material UI 等工具所
 1. 使用者創建帳號後進入搜尋頁面，即引導至 Line Notify 連動頁面
 2. 使用者成功連動 Line 帳號與 Line Notify，立即出現 **與「租屋小幫手」連動完成** 訊息
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0"/>![image](https://user-images.githubusercontent.com/111579529/211320980-301eb98b-1c0d-430b-8011-ec5996936a52.png)
+![image](https://user-images.githubusercontent.com/111579529/211353224-34c47793-049a-4408-b0e5-4a6111e8d065.png)
+
 
 ## 安裝
-Node.js 版本建議為 `18.13.0` 以上
 ### 取得專案
 ```
 git clone https://github.com/y0000ga/rent-helper.git
