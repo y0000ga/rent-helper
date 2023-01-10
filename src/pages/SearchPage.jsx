@@ -1,5 +1,5 @@
 import classes from './SearchPage.module.scss'
-import { memos } from '../configData'
+import { memos, lineAuthUrl } from '../configData'
 // material UI
 import { Button, Divider } from '@mui/material'
 import { Add, Loop, Close } from '@mui/icons-material'
@@ -14,10 +14,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // store
 import { searchActions } from '../store/search-slice'
-import { userActions } from '../store/user-slice'
 // api
 import { searchGetAllApi } from '../api/searchApi'
-import { lineAuthGetApi } from '../api/lineAuthApi'
 
 const SearchPage = () => {
   const dispatch = useDispatch()
@@ -29,24 +27,13 @@ const SearchPage = () => {
   const isEdit = useSelector((state) => state.search.isEdit)
   const hasLineToken = useSelector((state) => state.user.hasLineToken)
   const [isLoading, setIsLoading] = useState(true)
+  const userId = useSelector((state) => state.user.id)
 
   useEffect(() => {
-    const lineAuth = async () => {
-      if (hasLineToken === false) {
-        const resAuth = await lineAuthGetApi()
-        if (resAuth.data.message === undefined) {
-          window.open(resAuth.data.link)
-          return
-        } else {
-          dispatch(userActions.setHasLineToken())
-        }
-      }
-    }
     if (!token) {
       navigate('/login')
       return
     }
-    lineAuth()
   }, [dispatch, hasLineToken, navigate, token])
 
   useEffect(() => {
@@ -83,6 +70,10 @@ const SearchPage = () => {
         <div className={classes.memoContainer}>
           <div className={classes.title}>給使用者的提醒</div>
           <ul>
+            <li className={classes.memo} key='若尚未建立line連結, 請先點擊此處'>
+              若尚未建立line連結, 請先點擊
+              <a href={`${lineAuthUrl}${userId}`}>此處</a>
+            </li>
             {memos.map((data) => (
               <li className={classes.memo} key={data}>
                 {data}

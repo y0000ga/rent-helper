@@ -41,7 +41,7 @@ const LoginForm = () => {
         showConfirmButton: false,
         timer: 1500,
       })
-      navigate('/collect')
+      navigate('/search')
     } else {
       Swal.fire({
         position: 'top-end',

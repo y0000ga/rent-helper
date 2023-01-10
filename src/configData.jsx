@@ -44,11 +44,11 @@ export const shape = ['不限', '公寓', '電梯大樓', '透天厝', '別墅']
 export const notCoverLimitation = ['排除頂樓加蓋']
 
 export const memos = [
-  '設定條件組合的位置時，只能選擇同為台北市或同為新北市的行政區，類型與型態預設為不限',
+  '設定條件組合的位置時，只能選擇同為台北市或同為新北市的行政區，類型與型態預設為不限，最多新增五個條件組合',
   '* 記號代表該欄位必填',
-  '最多新增五個條件組合',
   '程式根據所有條件組合到 591 租屋網上搜尋合適物件，同時傳送通知到您的 line',
-  '新增或編輯條件組合後，需 20 分鐘後可以成功連動 Line 推薦',
+  '新增或編輯條件組合後，需 15 分鐘後可以成功連動 Line 推薦',
+  '刪除搜尋條件即可取消 line 通知',
 ]
 
 export const errorMessages = {
@@ -62,3 +62,5 @@ export const errorMessages = {
   number: '不得為負值',
   condition: '最多設定 20 字',
 }
+
+export const lineAuthUrl = 'https://notify-bot.line.me/oauth/authorize?response_type=code&scope=notify&response_mode=form_post&client_id=pZTkiw9zZ0a4QcACyliDXu&redirect_uri=https://rent-helper.herokuapp.com/api/lineAuth&state='

@@ -8,7 +8,7 @@ const SignupPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
     if (token) {
-      navigate('/collect')
+      navigate('/search')
     }
   }, [navigate, token])
   return (
