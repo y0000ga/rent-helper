@@ -113,7 +113,7 @@ const SearchForm = () => {
         <>
           <div className={classes.option__container}>
             <p className={classes.title}>
-              條件組合名稱<span className={classes.highlight}> *</span>
+              名稱<span className={classes.highlight}> *</span>
             </p>
             <TextField
               id='searchName'
