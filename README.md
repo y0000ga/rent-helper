@@ -37,7 +37,7 @@ Rent Helper 租屋小幫手是一個使用 React.js 與 Material UI 等工具所
 2. 僅支援台北市/新北市部分行政區、月租 50000 以下與坪數50坪以下
 3. 新增搜尋條件組合後 15 分鐘，若以將 Line 與帳號連結，則可於 Line Notify 收到與其相符的物件資訊
 
-![image](https://user-images.githubusercontent.com/111579529/211322553-111c46ff-cae8-4613-a674-1eba323c2d2f.png)
+![image](https://user-images.githubusercontent.com/111579529/211600898-b316f35a-5ac7-4713-98c3-3b1e26053aef.png)
 
 ✅**Line 通知**
 1. 使用者創建帳號後進入搜尋頁面，即引導至 Line Notify 連動頁面
