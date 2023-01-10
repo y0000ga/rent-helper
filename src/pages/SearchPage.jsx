@@ -25,7 +25,6 @@ const SearchPage = () => {
   const isSearchShown = useSelector((state) => state.search.isSearchShown)
   const isSearchUpdated = useSelector((state) => state.search.isSearchUpdated)
   const isEdit = useSelector((state) => state.search.isEdit)
-  const hasLineToken = useSelector((state) => state.user.hasLineToken)
   const [isLoading, setIsLoading] = useState(true)
   const userId = localStorage.getItem('userId')
  
@@ -34,7 +33,7 @@ const SearchPage = () => {
       navigate('/login')
       return
     }
-  }, [dispatch, hasLineToken, navigate, token])
+  }, [dispatch, navigate, token])
 
   useEffect(() => {
     const searchGetAll = async () => {
@@ -43,7 +42,7 @@ const SearchPage = () => {
       dispatch(searchActions.getAllSearchCollection(res.data.searches))
     }
     searchGetAll()
-  }, [dispatch, isSearchUpdated, hasLineToken])
+  }, [dispatch, isSearchUpdated])
 
   const searchShownHandler = () => {
     if (searchCollection.length === 5) {
@@ -89,7 +88,6 @@ const SearchPage = () => {
               sx={{ cursor: 'wait', fontSize: '54px' }}
               color='success'
             />
-            <p>確認 line 已認證後，請重整此畫面</p>
           </div>
         ) : (
           <>

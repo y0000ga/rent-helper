@@ -1,5 +1,5 @@
 import classes from './SearchItem.module.scss'
-import { ConditionBlock } from '../UI/Button'
+import DisplayBlock from '../UI/DisplayBlock'
 import { RemoveCircle, Edit } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
@@ -66,17 +66,17 @@ const SearchItem = (props) => {
         </>
       )}
       {sections.map((data) => (
-        <ConditionBlock content={data} key={data} />
+        <DisplayBlock content={data} key={data} />
       ))}
       {keyword.trim().length !== 0 && (
-        <ConditionBlock content={keyword} key='keyword' />
+        <DisplayBlock content={keyword} key='keyword' />
       )}
-      <ConditionBlock content={kind} key='kind' />
-      <ConditionBlock content={shape} key='shape' />
-      <ConditionBlock content={`${minPrice} 到 ${maxPrice}元`} key='price' />
-      <ConditionBlock content={`${minArea} 到 ${maxArea}坪`} key='area' />
+      <DisplayBlock content={kind} key='kind' />
+      <DisplayBlock content={shape} key='shape' />
+      <DisplayBlock content={`${minPrice} 到 ${maxPrice}元`} key='price' />
+      <DisplayBlock content={`${minArea} 到 ${maxArea}坪`} key='area' />
       {notCover === true && (
-        <ConditionBlock content='排除頂樓加蓋' key='notCover' />
+        <DisplayBlock content='排除頂樓加蓋' key='notCover' />
       )}
       <Divider sx={{ margin: '15px 8px' }} />
     </div>

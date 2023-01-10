@@ -1,6 +1,6 @@
 import classes from './RoomItem.module.scss'
 import { Close } from '@mui/icons-material'
-import { ConditionBlock, TextButton } from '../UI/Button'
+import DisplayBlock from '../UI/DisplayBlock'
 import RoomDetailModal from '../components/RoomDetailModal'
 import { housesDeleteApi, housesOneGetApi } from '../api/housesApi'
 import { useDispatch, useSelector } from 'react-redux'
@@ -59,12 +59,12 @@ const RoomItem = (props) => {
         <h3 className={classes.name}>{name}</h3>
         <img src={cover} alt='cover' />
         <div className={classes.intro}>
-          <ConditionBlock content={region} />
-          <ConditionBlock content={section} />
-          <ConditionBlock content={kind} />
-          <ConditionBlock content={`${area}`} />
-          <ConditionBlock content={`${price}元`} />
-          <ConditionBlock content={shape} />
+          <DisplayBlock content={region} />
+          <DisplayBlock content={section} />
+          <DisplayBlock content={kind} />
+          <DisplayBlock content={`${area}`} />
+          <DisplayBlock content={`${price}元`} />
+          <DisplayBlock content={shape} />
           <Button
             disableRipple
             variant='contained'
@@ -87,7 +87,15 @@ const RoomItem = (props) => {
             sx={{
               margin: 1,
               cursor: 'default',
-              '&:hover': { backgroundColor: `${isAllMet === 0 ? '#D3302F' : '#2F7D32'}` },
+              '&:hover': {
+                backgroundColor: `${
+                  isAllMet === 0
+                    ? '#D3302F'
+                    : isAllMet === false
+                    ? '#D3302F'
+                    : '#2F7D32'
+                }`,
+              },
             }}
             color={
               isAllMet === 0
@@ -105,7 +113,7 @@ const RoomItem = (props) => {
           </Button>
         </div>
         <p>{comment === '' ? '目前沒有任何備註' : comment}</p>
-        <TextButton content='查看與編輯物件資訊' onClick={showModalHandler} />
+        <Button onClick={showModalHandler}>查看與編輯物件資訊</Button>
       </div>
       {isModalShown === true && (
         <RoomDetailModal

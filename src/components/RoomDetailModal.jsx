@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import ExpenseButton from '../UI/ExpenseButton'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { ConditionBlock } from '../UI/Button'
+import DisplayBlock from '../UI/DisplayBlock'
 import { housesEditCommentApi } from '../api/housesApi'
 import { roomActions } from '../store/room-slice'
 import ConditionButton from '../UI/ConditionButton'
@@ -89,13 +89,13 @@ const RoomDetailModal = (props) => {
             />
           </div>
           <div className={classes.conditionList}>
-            <ConditionBlock content={area} key='area' />
-            <ConditionBlock content={region} key='region' />
-            <ConditionBlock content={section} key='section' />
-            <ConditionBlock content={kind} key='kind' />
-            <ConditionBlock content={shape} key='shape' />
+            <DisplayBlock content={area} key='area' />
+            <DisplayBlock content={region} key='region' />
+            <DisplayBlock content={section} key='section' />
+            <DisplayBlock content={kind} key='kind' />
+            <DisplayBlock content={shape} key='shape' />
             {ServicedFacilities.map((data) => (
-              <ConditionBlock content={data.name} key={data.id} />
+              <DisplayBlock content={data.name} key={data.id} />
             ))}
           </div>
           <Divider

@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 import { roomActions } from '../store/room-slice'
 import { settingActions } from '../store/setting-slice'
 import { searchActions } from '../store/search-slice'
-import { userActions } from '../store/user-slice'
 
 const NavList = () => {
   const dispatch = useDispatch()
@@ -21,7 +20,6 @@ const NavList = () => {
           dispatch(roomActions.clearRoomInfo())
           dispatch(settingActions.clearSettingInfo())
           dispatch(searchActions.clearSearchInfo())
-          dispatch(userActions.clearUserInfo())
           localStorage.clear()
           navigate(data.pathname)
           return

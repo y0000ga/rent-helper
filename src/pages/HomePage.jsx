@@ -8,7 +8,7 @@ const HomePage = () => {
     if (!token) {
       navigate('/login')
     } else {
-      navigate('/collect')
+      navigate('/search')
     }
   }, [navigate, token])
 }
