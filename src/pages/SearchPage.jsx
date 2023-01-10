@@ -27,8 +27,8 @@ const SearchPage = () => {
   const isEdit = useSelector((state) => state.search.isEdit)
   const hasLineToken = useSelector((state) => state.user.hasLineToken)
   const [isLoading, setIsLoading] = useState(true)
-  const userId = useSelector((state) => state.user.id)
-
+  const userId = localStorage.getItem('userId')
+ 
   useEffect(() => {
     if (!token) {
       navigate('/login')
