@@ -31,7 +31,9 @@ const NavList = () => {
           const res = await lineAuthGetApi()
           const { link, message } = res.data
           if (message === undefined) {
-            window.open(link)
+            setTimeout(() => {
+              window.open(link, '_blank')
+            })
             return
           }
         }
