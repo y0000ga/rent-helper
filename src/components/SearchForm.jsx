@@ -30,11 +30,11 @@ const SearchForm = () => {
   const isEdit = useSelector((state) => state.search.isEdit)
   const [isLoading, setIsLoading] = useState(false)
   const isNameValid =
-    currentSearch.name.trim().length < 20 &&
-    currentSearch.name.trim().length > 1
+    currentSearch.name.trim().length <= 20 &&
+    currentSearch.name.trim().length >= 1
   const isKeywordValid = currentSearch.keyword.trim().length < 20
   const isSectionsValid =
-    currentSearch.sections.length > 1 && currentSearch.sections.length <= 5
+    currentSearch.sections.length >= 1 && currentSearch.sections.length <= 5
   const isPriceValid =
     currentSearch.maxPrice > 0 &&
     currentSearch.minPrice >= 0 &&
@@ -47,7 +47,7 @@ const SearchForm = () => {
     currentSearch.maxArea <= 50 &&
     currentSearch.maxArea > currentSearch.minArea
 
-  const submitErrorMessage = `${!isNameValid ? '條件組合名稱欄位、' : ''}${
+  const submitErrorMessage = `${!isNameValid ? '名稱欄位、' : ''}${
     !isKeywordValid ? '其他關鍵字欄位、' : ''
   }${!isSectionsValid ? '位置欄位、' : ''}${!isPriceValid ? '租金欄位、' : ''}${
     !isAreaValid ? '坪數欄位、' : ''
