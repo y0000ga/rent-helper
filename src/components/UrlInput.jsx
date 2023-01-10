@@ -48,6 +48,7 @@ const UrlInput = () => {
       })
       setHouseUrl('')
       setStatus('finish')
+      dispatch(roomActions.setIsRoomUpdated())
     } else {
       Swal.fire({
         position: 'top-end',

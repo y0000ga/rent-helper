@@ -30,6 +30,7 @@ const CollectPage = () => {
     const housesAllGet = async () => {
       const res = await housesAllGetApi({ page: 1 })
       const { houses } = res.data
+      setHasMore(houses.length)
       dispatch(roomActions.getAllHouses(houses))
       setPage(2)
     }
@@ -43,6 +44,7 @@ const CollectPage = () => {
   const allMetHandler = async () => {
     const res = await housesAllGetApi({ page: 1, filter: 'allMet' })
     const { houses } = res.data
+    setHasMore(houses.length)
     dispatch(roomActions.getAllHouses(houses))
     setPage(2)
     setTabValue(1)
@@ -50,6 +52,7 @@ const CollectPage = () => {
   const notAllMetHandler = async () => {
     const res = await housesAllGetApi({ page: 1, filter: 'notAllMet' })
     const { houses } = res.data
+    setHasMore(houses.length)
     dispatch(roomActions.getAllHouses(houses))
     setPage(2)
     setTabValue(2)
@@ -57,12 +60,18 @@ const CollectPage = () => {
   const allHandler = async () => {
     const res = await housesAllGetApi({ page: 1 })
     const { houses } = res.data
+    setHasMore(houses.length)
     dispatch(roomActions.getAllHouses(houses))
     setPage(2)
     setTabValue(0)
   }
   const changePage = async () => {
-    const res = await housesAllGetApi({ page: page })
+    const res = await housesAllGetApi({
+      page: page,
+      filter: `${
+        tabValue === 1 ? 'allMet' : tabValue === 2 ? 'notAllMet' : ''
+      }`,
+    })
     const { houses } = res.data
     setHasMore(houses.length)
     dispatch(roomActions.changeHousesPage(houses))

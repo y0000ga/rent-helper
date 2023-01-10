@@ -4,6 +4,7 @@ const initialState = {
   allRoom: [],
   currentRoom: [],
   isModalShown: false,
+  isRoomUpdated: false,
 }
 
 const roomSlice = createSlice({
@@ -68,7 +69,7 @@ const roomSlice = createSlice({
       state.allRoom = initialState.allRoom
       state.currentRoom = initialState.currentRoom
       state.isModalShown = initialState.isModalShown
-    }
+    },
   },
 })
 
