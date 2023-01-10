@@ -6,6 +6,7 @@ import { roomActions } from '../store/room-slice'
 import { settingActions } from '../store/setting-slice'
 import { searchActions } from '../store/search-slice'
 import { userActions } from '../store/user-slice'
+import Swal from 'sweetalert2'
 
 const NavList = () => {
   const dispatch = useDispatch()
@@ -31,9 +32,16 @@ const NavList = () => {
           const res = await lineAuthGetApi()
           const { link, message } = res.data
           if (message === undefined) {
-            setTimeout(() => {
-              window.open(link, '_blank')
+            Swal.fire({
+              title: '<strong>尚未與 Line Notify 連動</strong>',
+              icon: 'warning',
+              html:`點擊<a href="${link}">此連結</a>以前往設定頁面`,
+              showCloseButton: true,
+              showConfirmButton: false,
             })
+            // setTimeout(() => {
+            //   window.open(link, '_blank')
+            // })
             return
           }
         }
