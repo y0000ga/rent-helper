@@ -5,13 +5,13 @@ import SearchPage from './pages/SearchPage'
 import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 import SignupPage from './pages/SignupPage'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import SettingPage from './pages/SettingPage'
 
 const App = () => {
   return (
     <div className='App'>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path='search' element={<SearchPage />} />
           <Route path='collect' element={<CollectPage />} />
@@ -20,7 +20,7 @@ const App = () => {
           <Route path='setting' element={<SettingPage/>}/>
           <Route path='*' element={<HomePage />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   )
 }
