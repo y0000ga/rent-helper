@@ -39,9 +39,6 @@ const NavList = () => {
               showCloseButton: true,
               showConfirmButton: false,
             })
-            // setTimeout(() => {
-            //   window.open(link, '_blank')
-            // })
             return
           }
         }
