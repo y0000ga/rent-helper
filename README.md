@@ -24,7 +24,7 @@ Rent Helper 租屋小幫手是一個使用 React.js 與 Material UI 等工具所
 ✅**收藏**
 1. 使用者可在收藏總覽頁面依據是否符合自定義條件進行篩選
 2. 使用者貼上591頁面的網址後，可收藏感興趣的591物件，其基本資訊(名稱、地區、類型、型態、租金、坪數、照片、設備)將自動代入
-3. 僅支援台北市/新北市部分行政區、月租 50000 以下與坪數50坪以下
+3. 僅支援台北市/新北市部分行政區
 4. 使用者可針對個別物件撰寫個人備註、增加潛在額外支出與設定是否符合自定義條件
 
 ![image](https://user-images.githubusercontent.com/111579529/211322653-80e4d1c6-2242-4c84-9456-6a88493b421b.png)
@@ -37,7 +37,7 @@ Rent Helper 租屋小幫手是一個使用 React.js 與 Material UI 等工具所
 2. 僅支援台北市/新北市部分行政區、月租 50000 以下與坪數50坪以下
 3. 新增搜尋條件組合後 15 分鐘，若以將 Line 與帳號連結，則可於 Line Notify 收到與其相符的物件資訊
 
-![image](https://user-images.githubusercontent.com/111579529/211322553-111c46ff-cae8-4613-a674-1eba323c2d2f.png)
+![image](https://user-images.githubusercontent.com/111579529/211600898-b316f35a-5ac7-4713-98c3-3b1e26053aef.png)
 
 ✅**Line 通知**
 1. 使用者創建帳號後進入搜尋頁面，即引導至 Line Notify 連動頁面
