@@ -4,7 +4,8 @@ Rent Helper 租屋小幫手是一個使用 React.js 與 Material UI 等工具所
 ### [DEMO 頁面](https://y0000ga.github.io/rent-helper/)
 
 ## 功能與畫面
-測試帳號密碼 **(已和其他 Line 帳號連結，故僅供平台操作，若使用者需要使用 Line 通知合適物件，則須自行註冊新的帳號密碼)**
+測試帳號
+**(已和其他 Line 帳號連結，故僅供平台操作，若使用者需要使用 Line 通知合適物件，則須自行註冊新的帳號密碼)**
 ```
 帳號：user1
 密碼：User1
