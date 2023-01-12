@@ -13,19 +13,18 @@ const LoginForm = () => {
     account: yup
       .string()
       .trim()
-      .min(8, '帳號長度不得小於 8')
-      .max(20, '帳號長度不得超過 20')
-      .required('帳號欄位不得為空'),
+      .required('帳號欄位不得為空')
+      .min(4, '帳號長度不得小於 4')
+      .max(20, '帳號長度不得超過 20'),
     password: yup
       .string()
       .trim()
-      .min(8, '密碼長度不得小於 8')
-      .max(20, '密碼長度不得超過 20')
       .required('密碼欄位不得為空')
       .matches(/[0-9]/, '密碼須包含一個數字')
       .matches(/[a-z]/, '密碼須包含一個小寫字母')
       .matches(/[A-Z]/, '密碼須包含一個大寫字母')
-      .matches(/[^\w]/, '密碼須包含一個符號'),
+      .min(4, '密碼長度不得小於 4')
+      .max(20, '密碼長度不得超過 20'),
   })
 
   const loginHandler = async (values) => {
