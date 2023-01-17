@@ -243,6 +243,9 @@ const SearchForm = () => {
                 <MenuItem
                   value={data}
                   key={data === '不限' ? '型態不限' : data}
+                  onClick={() => {
+                    dispatch(searchActions.setShape(data))
+                  }}
                 >
                   {data}
                 </MenuItem>
