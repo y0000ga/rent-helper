@@ -1,5 +1,4 @@
 import classes from './SearchPage.module.scss'
-import { memos, lineAuthUrl } from '../configData'
 // material UI
 import { Button, Divider } from '@mui/material'
 import { Add, Loop, Close } from '@mui/icons-material'
@@ -16,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { searchActions } from '../store/search-slice'
 // api
 import { searchGetAllApi } from '../api/searchApi'
+import { userLineAuthApi } from '../api/userApi'
 
 const SearchPage = () => {
   const dispatch = useDispatch()
@@ -26,8 +26,8 @@ const SearchPage = () => {
   const isSearchUpdated = useSelector((state) => state.search.isSearchUpdated)
   const isEdit = useSelector((state) => state.search.isEdit)
   const [isLoading, setIsLoading] = useState(true)
-  const userId = localStorage.getItem('userId')
- 
+  const [lineAuthUrl, setLineAuthUrl] = useState('')
+
   useEffect(() => {
     if (!token) {
       navigate('/login')
@@ -40,6 +40,8 @@ const SearchPage = () => {
       const res = await searchGetAllApi()
       setIsLoading(false)
       dispatch(searchActions.getAllSearchCollection(res.data.searches))
+      const lineAuthRes = await userLineAuthApi()
+      setLineAuthUrl(lineAuthRes.data.link)
     }
     searchGetAll()
   }, [dispatch, isSearchUpdated])
@@ -69,15 +71,18 @@ const SearchPage = () => {
         <div className={classes.memoContainer}>
           <div className={classes.title}>給使用者的提醒</div>
           <ul>
-            <li className={classes.memo} key='若尚未建立line連結, 請先點擊此處'>
-              若尚未建立line連結, 請先點擊
-              <a href={`${lineAuthUrl}${userId}`}>此處</a>
+            <li className={classes.memo} key='memo1'>
+              程式會根據所有條件組合到 591 租屋網上搜尋新上架物件，每 15
+              分鐘傳送通知到您的 Line
             </li>
-            {memos.map((data) => (
-              <li className={classes.memo} key={data}>
-                {data}
-              </li>
-            ))}
+            <li className={classes.memo} key='memo2'>
+              若尚未建立 Line 帳號連結或想更改連結 Line 帳號, 請點擊
+              <a href={lineAuthUrl}>此處</a>
+            </li>
+
+            <li className={classes.memo} key='memo3'>
+              * 記號代表該欄位必填
+            </li>
           </ul>
         </div>
         <Divider sx={{ margin: '15px 8px' }} />

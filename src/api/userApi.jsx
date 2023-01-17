@@ -43,3 +43,14 @@ export const userLoginApi = async (payload) => {
     return error.response
   }
 }
+
+// 使用者 Line 帳號驗證
+export const userLineAuthApi = async () => {
+  try {
+    const res = await axiosInstance.get(`${usersURL}/lineAuth`)
+    return res
+  } catch (error) {
+    console.error('[User Line Auth Failed]: ', error)
+    return error.response
+  }
+}
