@@ -47,8 +47,7 @@ const SearchItem = (props) => {
     }
   }
   const editSearchHandler = () => {
-    dispatch(searchActions.setIsEdit(true))
-    dispatch(searchActions.setIsSearchShown(true))
+    dispatch(searchActions.setSearchFormStatus("edit"))
     dispatch(searchActions.setCurrentSearch({ id }))
   }
   return (

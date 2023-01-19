@@ -15,15 +15,17 @@ const initialState = {
     maxArea: '',
     notCover: false,
   },
-  isSearchShown: false,
   isSearchUpdated: false,
-  isEdit: false,
+  searchFormStatus: 'finish', // finish, createNew, edit
 }
 
 const searchSlice = createSlice({
   name: 'search',
   initialState: initialState,
   reducers: {
+    setSearchFormStatus(state, action) {
+      state.searchFormStatus = action.payload
+    },
     setIsSearchUpdated(state) {
       state.isSearchUpdated = !state.isSearchUpdated
     },
@@ -32,9 +34,6 @@ const searchSlice = createSlice({
     },
     createSearch(state, action) {
       state.searchCollection = state.searchCollection.unshift(action.payload)
-    },
-    setIsSearchShown(state) {
-      state.isSearchShown = !state.isSearchShown
     },
     setName(state, action) {
       state.currentSearch.name = action.payload
@@ -97,15 +96,10 @@ const searchSlice = createSlice({
       )
       state.currentSearch = state.searchCollection[targetIndex]
     },
-    setIsEdit(state, action) {
-      state.isEdit = action.payload
-    },
     clearSearchInfo(state) {
       state.searchCollection = initialState.searchCollection
       state.currentSearch = initialState.currentSearch
-      state.isSearchShown = initialState.isSearchShown
       state.isSearchUpdated = initialState.isSearchUpdated
-      state.isEdit = initialState.isEdit
     },
   },
 })

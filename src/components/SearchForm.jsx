@@ -26,8 +26,8 @@ import { Loop } from '@mui/icons-material'
 
 const SearchForm = () => {
   const currentSearch = useSelector((state) => state.search.currentSearch)
+  const searchFormStatus = useSelector((state) => state.search.searchFormStatus)
   const dispatch = useDispatch()
-  const isEdit = useSelector((state) => state.search.isEdit)
   const [isLoading, setIsLoading] = useState(false)
   const isNameValid =
     currentSearch.name.trim().length <= 20 &&
@@ -68,14 +68,16 @@ const SearchForm = () => {
       })
       return
     }
-    if (isEdit === true) {
+
+    setIsLoading(true)
+
+    if (searchFormStatus === 'edit') {
       await searchEditApi(currentSearch)
       dispatch(searchActions.setIsSearchUpdated())
-      dispatch(searchActions.setIsSearchShown(false))
-      dispatch(searchActions.setIsEdit(false))
+      dispatch(searchActions.setSearchFormStatus('finish'))
       return
     }
-    setIsLoading(true)
+
     const res = await searchCreateApi(currentSearch)
     if (res.status !== 200) {
       Swal.fire({
@@ -95,7 +97,8 @@ const SearchForm = () => {
         timer: 1500,
       })
     }
-    dispatch(searchActions.setIsSearchShown(false))
+    dispatch(searchActions.setSearchFormStatus('finish'))
+    dispatch(searchActions.clearCurrentSearch())
     dispatch(searchActions.setIsSearchUpdated())
   }
   return (

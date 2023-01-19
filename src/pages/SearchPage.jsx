@@ -22,11 +22,10 @@ const SearchPage = () => {
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
   const searchCollection = useSelector((state) => state.search.searchCollection)
-  const isSearchShown = useSelector((state) => state.search.isSearchShown)
   const isSearchUpdated = useSelector((state) => state.search.isSearchUpdated)
-  const isEdit = useSelector((state) => state.search.isEdit)
   const [isLoading, setIsLoading] = useState(true)
   const [lineAuthUrl, setLineAuthUrl] = useState('')
+  const searchFormStatus = useSelector((state) => state.search.searchFormStatus)
 
   useEffect(() => {
     if (!token) {
@@ -57,11 +56,11 @@ const SearchPage = () => {
       })
       return
     }
-    if (isSearchShown === true) {
-      dispatch(searchActions.setIsSearchShown(false))
-    } else {
+    if (searchFormStatus === 'edit' || searchFormStatus === 'createNew') {
+      dispatch(searchActions.setSearchFormStatus('finish'))
       dispatch(searchActions.clearCurrentSearch())
-      dispatch(searchActions.setIsSearchShown(true))
+    } else {
+      dispatch(searchActions.setSearchFormStatus('createNew'))
     }
   }
 
@@ -115,18 +114,16 @@ const SearchPage = () => {
             variant='outlined'
             sx={{ margin: 1, width: '180px' }}
             onClick={searchShownHandler}
-            endIcon={isSearchShown === false ? <Add /> : <Close />}
+            endIcon={searchFormStatus === 'finish' ? <Add /> : <Close />}
           >
-            {isSearchShown === false
-              ? '新增'
-              : isEdit === true
-              ? '取消編輯'
-              : '取消新增'}
+            {searchFormStatus === 'edit' && '取消編輯'}
+            {searchFormStatus === 'createNew' && '取消新增'}
+            {searchFormStatus === 'finish' && '新增'}
             條件組合
           </Button>
         </div>
 
-        {isSearchShown === true && (
+        {(searchFormStatus === 'edit' || searchFormStatus === 'createNew') && (
           <>
             <Divider sx={{ margin: '15px 8px' }} />
             <SearchForm />
