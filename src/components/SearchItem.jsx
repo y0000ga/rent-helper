@@ -22,7 +22,7 @@ const SearchItem = (props) => {
     notCover,
     keyword,
   } = props.data
-  const isSearchShown = useSelector((state) => state.search.isSearchShown)
+  const searchFormStatus = useSelector((state) => state.search.searchFormStatus)
   const removeSearchHandler = async () => {
     let result = await Swal.fire({
       title: '確定要刪除此條件組合嗎？',
@@ -55,7 +55,7 @@ const SearchItem = (props) => {
       <p className={classes.subtitle}>
         {props.index + 1}. {name}
       </p>
-      {isSearchShown === false && (
+      {searchFormStatus === 'finish' && (
         <>
           <RemoveCircle
             className={classes.icon__removeCircle}
