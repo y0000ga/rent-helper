@@ -60,6 +60,7 @@ const SearchPage = () => {
       dispatch(searchActions.setSearchFormStatus('finish'))
       dispatch(searchActions.clearCurrentSearch())
     } else {
+      dispatch(searchActions.clearCurrentSearch())
       dispatch(searchActions.setSearchFormStatus('createNew'))
     }
   }

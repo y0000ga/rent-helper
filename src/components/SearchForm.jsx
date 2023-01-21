@@ -97,9 +97,8 @@ const SearchForm = () => {
         timer: 1500,
       })
     }
-    dispatch(searchActions.setSearchFormStatus('finish'))
-    dispatch(searchActions.clearCurrentSearch())
     dispatch(searchActions.setIsSearchUpdated())
+    dispatch(searchActions.setSearchFormStatus('finish'))
   }
   return (
     <>
