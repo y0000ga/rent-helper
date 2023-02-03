@@ -1,7 +1,7 @@
 import { Close, Add, Clear } from '@mui/icons-material'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { roomActions } from '../store/room-slice'
+import { createExpense, deleteExpense } from '../store/room-slice'
 import {
   Button,
   OutlinedInput,
@@ -9,7 +9,6 @@ import {
   InputAdornment,
   FormControl,
 } from '@mui/material'
-import { expenseCreateApi, expenseDeleteApi } from '../api/ExpenseApi'
 
 const ExpenseButton = (props) => {
   const { math, width, data } = props
@@ -18,22 +17,20 @@ const ExpenseButton = (props) => {
   const [isEdit, setIsEdit] = useState(false)
   const [userInput, setUserInput] = useState('')
   const [userInputExpen, setUserInputExpen] = useState('')
-  const removeHandler = async () => {
-    const res = await expenseDeleteApi({ expenseId: data.id })
-    dispatch(roomActions.removeExpense(res.data.expense))
-  }
   const userInputValid =
     userInput.trim().length > 0 && userInput.trim().length < 21
   const userInputExpenValid =
     Number(userInputExpen) > 0 && Number(userInputExpen) < 9999
-  const addHandler = async () => {
-    const res = await expenseCreateApi({
-      HouseId: house.id,
-      name: userInput,
-      price: userInputExpen,
-    })
+  const removeHandler = () => {
+    dispatch(deleteExpense({ expenseId: data.id }))
+  }
+  const addHandler = () => {
     dispatch(
-      roomActions.addExpenses({ expense: res.data.expense, id: house.id })
+      createExpense({
+        HouseId: house.id,
+        name: userInput,
+        price: userInputExpen,
+      })
     )
     setIsEdit(false)
     setUserInput('')

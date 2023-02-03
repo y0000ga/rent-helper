@@ -9,13 +9,12 @@ import SearchForm from '../components/SearchForm'
 import Swal from 'sweetalert2'
 // hook
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 // store
 import { searchActions } from '../store/search-slice'
 // api
-import { searchGetAllApi } from '../api/searchApi'
-import { userLineAuthApi } from '../api/userApi'
+import { searchGetAll } from '../store/search-slice'
 
 const SearchPage = () => {
   const dispatch = useDispatch()
@@ -23,8 +22,8 @@ const SearchPage = () => {
   const token = localStorage.getItem('token')
   const searchCollection = useSelector((state) => state.search.searchCollection)
   const isSearchUpdated = useSelector((state) => state.search.isSearchUpdated)
-  const [isLoading, setIsLoading] = useState(true)
-  const [lineAuthUrl, setLineAuthUrl] = useState('')
+  const isSearchLoading = useSelector((state) => state.search.isSearchLoading)
+  const lineAuthUrl = useSelector((state) => state.search.lineAuthUrl)
   const searchFormStatus = useSelector((state) => state.search.searchFormStatus)
 
   useEffect(() => {
@@ -35,14 +34,7 @@ const SearchPage = () => {
   }, [dispatch, navigate, token])
 
   useEffect(() => {
-    const searchGetAll = async () => {
-      const res = await searchGetAllApi()
-      setIsLoading(false)
-      dispatch(searchActions.getAllSearchCollection(res.data.searches))
-      const lineAuthRes = await userLineAuthApi()
-      setLineAuthUrl(lineAuthRes.data.link)
-    }
-    searchGetAll()
+    dispatch(searchGetAll())
   }, [dispatch, isSearchUpdated])
 
   const searchShownHandler = () => {
@@ -86,7 +78,7 @@ const SearchPage = () => {
           </ul>
         </div>
         <Divider sx={{ margin: '15px 8px' }} />
-        {isLoading === true ? (
+        {isSearchLoading === true ? (
           <div className={classes.loadingContainer}>
             <Loop
               className={classes.loading}

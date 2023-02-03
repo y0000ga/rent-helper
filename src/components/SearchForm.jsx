@@ -17,18 +17,16 @@ import {
   notCoverLimitation,
 } from '../configData'
 import { useSelector, useDispatch } from 'react-redux'
-import { searchActions } from '../store/search-slice'
-import { searchCreateApi, searchEditApi } from '../api/searchApi'
+import { searchActions, searchCreate, searchEdit } from '../store/search-slice'
 import Swal from 'sweetalert2'
 import { errorMessages } from '../configData'
-import { useState } from 'react'
 import { Loop } from '@mui/icons-material'
 
 const SearchForm = () => {
   const currentSearch = useSelector((state) => state.search.currentSearch)
   const searchFormStatus = useSelector((state) => state.search.searchFormStatus)
   const dispatch = useDispatch()
-  const [isLoading, setIsLoading] = useState(false)
+
   const isNameValid =
     currentSearch.name.trim().length <= 20 &&
     currentSearch.name.trim().length >= 1
@@ -69,40 +67,16 @@ const SearchForm = () => {
       return
     }
 
-    setIsLoading(true)
-
     if (searchFormStatus === 'edit') {
-      await searchEditApi(currentSearch)
-      dispatch(searchActions.setIsSearchUpdated())
-      dispatch(searchActions.setSearchFormStatus('finish'))
+      dispatch(searchEdit(currentSearch))
       return
     }
 
-    const res = await searchCreateApi(currentSearch)
-    if (res.status !== 200) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'warning',
-        title: `${res.data.message}`,
-        showConfirmButton: false,
-        timer: 1500,
-      })
-    } else {
-      setIsLoading(false)
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: '條件組合新增成功',
-        showConfirmButton: false,
-        timer: 1500,
-      })
-    }
-    dispatch(searchActions.setIsSearchUpdated())
-    dispatch(searchActions.setSearchFormStatus('finish'))
+    dispatch(searchCreate(currentSearch))
   }
   return (
     <>
-      {isLoading ? (
+      {searchFormStatus === 'loading' ? (
         <div className={classes.loadingContainer}>
           <Loop
             className={classes.loading}

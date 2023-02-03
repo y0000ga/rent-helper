@@ -1,6 +1,133 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import Swal from 'sweetalert2'
+import axios from 'axios'
+import { baseURL } from '../configData'
+
+const searchesURL = `${baseURL}searches`
+const usersURL = `${baseURL}users`
+
+const axiosInstance = axios.create({ baseURL: searchesURL })
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`
+  }
+  return config
+})
+
+// 新增搜尋條件
+export const searchCreate = createAsyncThunk(
+  'search/searchCreate',
+  async (payload) => {
+    const {
+      name,
+      keyword,
+      region,
+      sections,
+      kind,
+      shape,
+      minArea,
+      maxArea,
+      minPrice,
+      maxPrice,
+      notCover,
+    } = payload
+
+    try {
+      const res = await axiosInstance.post(`${searchesURL}`, {
+        name,
+        keyword,
+        region,
+        sections,
+        kind,
+        shape,
+        minArea,
+        maxArea,
+        minPrice,
+        maxPrice,
+        notCover,
+      })
+      return res
+    } catch (error) {
+      console.error('[Search Create Failed]: ', error)
+      return error.response
+    }
+  }
+)
+
+// 取得全部搜尋條件名稱
+export const searchGetAll = createAsyncThunk(
+  'search/searchGetAll',
+  async () => {
+    try {
+      const resSearch = await axiosInstance.get(`${searchesURL}`)
+      const resLineAuth = await axiosInstance.get(`${usersURL}/lineAuth`)
+      return { search: resSearch, lineAuth: resLineAuth }
+    } catch (error) {
+      console.error('[Search Get All Failed]: ', error)
+      return error.response
+    }
+  }
+)
+
+// 編輯單一搜尋條件
+export const searchEdit = createAsyncThunk(
+  'search/searchEdit',
+  async (payload) => {
+    const {
+      id,
+      name,
+      keyword,
+      region,
+      sections,
+      kind,
+      shape,
+      minArea,
+      maxArea,
+      minPrice,
+      maxPrice,
+      notCover,
+    } = payload
+    try {
+      const res = axiosInstance.put(`${searchesURL}/${id}`, {
+        name,
+        keyword,
+        region,
+        sections,
+        kind,
+        shape,
+        minArea,
+        maxArea,
+        minPrice,
+        maxPrice,
+        notCover,
+      })
+      return res
+    } catch (error) {
+      console.error('[Search Edit Failed]: ', error)
+      return error.response
+    }
+  }
+)
+
+// 刪除單一搜尋條件
+export const searchDelete = createAsyncThunk(
+  'search/searchDelete',
+  async (payload) => {
+    const { id } = payload
+    try {
+      const res = axiosInstance.delete(`${searchesURL}/${id}`)
+      return res
+    } catch (error) {
+      console.error('[Search Delete Failed]: ', error)
+      return error.response
+    }
+  }
+)
 
 const initialState = {
+  lineAuthUrl: '',
   searchCollection: [],
   currentSearch: {
     name: '',
@@ -16,24 +143,65 @@ const initialState = {
     notCover: false,
   },
   isSearchUpdated: false,
-  searchFormStatus: 'finish', // finish, createNew, edit
+  searchFormStatus: 'finish', // finish, createNew, edit, loading
+  isSearchLoading: false,
 }
 
 const searchSlice = createSlice({
   name: 'search',
   initialState: initialState,
+  extraReducers: (builder) => {
+    builder.addCase(searchGetAll.pending, (state) => {
+      state.isSearchLoading = true
+    })
+    builder.addCase(searchGetAll.fulfilled, (state, action) => {
+      state.isSearchLoading = false
+      state.lineAuthUrl = action.payload.lineAuth.data.link
+      state.searchCollection = action.payload.search.data.searches
+    })
+    builder.addCase(searchDelete.fulfilled, (state) => {
+      state.isSearchUpdated = !state.isSearchUpdated
+    })
+    builder.addCase(searchCreate.pending, (state) => {
+      state.searchFormStatus = 'loading'
+      state.isSearchLoading = true
+    })
+    builder.addCase(searchCreate.fulfilled, (state, action) => {
+      state.isSearchUpdated = !state.isSearchUpdated
+      if (action.payload.status !== 200) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'warning',
+          title: `${action.payload.data.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '條件組合新增成功',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      }
+      state.searchFormStatus = 'finish'
+    })
+    builder.addCase(searchEdit.pending, (state) => {
+      state.searchFormStatus = 'loading'
+      state.isSearchLoading = true
+    })
+    builder.addCase(searchEdit.fulfilled, (state) => {
+      state.isSearchUpdated = !state.isSearchUpdated
+      state.searchFormStatus = 'finish'
+    })
+  },
   reducers: {
     setSearchFormStatus(state, action) {
       state.searchFormStatus = action.payload
     },
     setIsSearchUpdated(state) {
       state.isSearchUpdated = !state.isSearchUpdated
-    },
-    getAllSearchCollection(state, action) {
-      state.searchCollection = action.payload
-    },
-    createSearch(state, action) {
-      state.searchCollection = state.searchCollection.unshift(action.payload)
     },
     setName(state, action) {
       state.currentSearch.name = action.payload

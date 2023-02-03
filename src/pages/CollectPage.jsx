@@ -6,20 +6,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import UrlInput from '../components/UrlInput'
-import { housesAllGetApi } from '../api/housesApi'
-import { roomActions } from '../store/room-slice'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Loop } from '@mui/icons-material'
+import { getAllInfo, getMoreInfo } from '../store/room-slice'
 
 const CollectPage = () => {
   const token = localStorage.getItem('token')
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const allRoom = useSelector((state) => state.room.allRoom)
+  const isCollectUpdate = useSelector((state) => state.room.isCollectUpdate)
+  const hasMoreRoom = useSelector((state) => state.room.hasMoreRoom)
   const [tabValue, setTabValue] = useState(0)
   const [page, setPage] = useState(1)
-  const [hasMore, setHasMore] = useState(true)
-  const isModalShown = useSelector((state) => state.room.isModalShown)
   useEffect(() => {
     if (!token) {
       navigate('/login')
@@ -27,54 +26,38 @@ const CollectPage = () => {
   }, [navigate, token])
 
   useEffect(() => {
-    const housesAllGet = async () => {
-      const res = await housesAllGetApi({ page: 1 })
-      const { houses } = res.data
-      setHasMore(houses.length)
-      dispatch(roomActions.getAllHouses(houses))
-      setPage(2)
-    }
-    if (isModalShown === false) {
-      setTabValue(0)
-      housesAllGet()
-    }
-  }, [dispatch, isModalShown])
+    setTabValue(0)
+    dispatch(getAllInfo({ page: 1, filter: 'all' }))
+    setPage(2)
+  }, [dispatch, isCollectUpdate])
 
   const roomList = allRoom.map((data) => <RoomItem data={data} key={data.id} />)
-  const allMetHandler = async () => {
-    const res = await housesAllGetApi({ page: 1, filter: 'allMet' })
-    const { houses } = res.data
-    setHasMore(houses.length)
-    dispatch(roomActions.getAllHouses(houses))
+
+  const allMetHandler = () => {
+    dispatch(getAllInfo({ page: 1, filter: 'allMet' }))
     setPage(2)
     setTabValue(1)
   }
-  const notAllMetHandler = async () => {
-    const res = await housesAllGetApi({ page: 1, filter: 'notAllMet' })
-    const { houses } = res.data
-    setHasMore(houses.length)
-    dispatch(roomActions.getAllHouses(houses))
+  const notAllMetHandler = () => {
+    dispatch(getAllInfo({ page: 1, filter: 'notAllMet' }))
     setPage(2)
     setTabValue(2)
   }
   const allHandler = async () => {
-    const res = await housesAllGetApi({ page: 1 })
-    const { houses } = res.data
-    setHasMore(houses.length)
-    dispatch(roomActions.getAllHouses(houses))
+    dispatch(getAllInfo({ page: 1, filter: 'all' }))
+
     setPage(2)
     setTabValue(0)
   }
   const changePage = async () => {
-    const res = await housesAllGetApi({
-      page: page,
-      filter: `${
-        tabValue === 1 ? 'allMet' : tabValue === 2 ? 'notAllMet' : ''
-      }`,
-    })
-    const { houses } = res.data
-    setHasMore(houses.length)
-    dispatch(roomActions.changeHousesPage(houses))
+    dispatch(
+      getMoreInfo({
+        page: page,
+        filter: `${
+          tabValue === 1 ? 'allMet' : tabValue === 2 ? 'notAllMet' : ''
+        }`,
+      })
+    )
     setPage((page) => page + 1)
   }
 
@@ -116,7 +99,7 @@ const CollectPage = () => {
               className={classes.infiniteScroll}
               dataLength={allRoom.length}
               next={changePage}
-              hasMore={hasMore !== 0}
+              hasMore={hasMoreRoom !== 0}
               loader={
                 <div className={classes.loadingContainer}>
                   <Loop

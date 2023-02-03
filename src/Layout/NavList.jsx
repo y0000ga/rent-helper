@@ -15,7 +15,7 @@ const NavList = () => {
       style={{
         color: data.pathname === currentPathname ? '#1876D2' : undefined,
       }}
-      onClick={async () => {
+      onClick={() => {
         if (data.title === '登出') {
           dispatch(roomActions.clearRoomInfo())
           dispatch(settingActions.clearSettingInfo())

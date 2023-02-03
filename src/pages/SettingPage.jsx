@@ -7,8 +7,7 @@ import { TextField } from '@mui/material'
 import { AddBox } from '@mui/icons-material'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
-import { conditionCreateApi, conditionGetAllApi } from '../api/ConditionApi'
-import { settingActions } from '../store/setting-slice'
+import { createCondition, getAll } from '../store/setting-slice'
 import ConditionItem from '../components/ConditionItem'
 
 const SettingPage = () => {
@@ -21,15 +20,9 @@ const SettingPage = () => {
     if (!token) {
       navigate('/login')
     }
-  }, [navigate, token])
+    dispatch(getAll())
+  }, [dispatch, navigate, token])
 
-  useEffect(() => {
-    const conditionGetAll = async () => {
-      const res = await conditionGetAllApi()
-      dispatch(settingActions.getAllCondition(res.data.conditions))
-    }
-    conditionGetAll()
-  }, [dispatch])
   const addConditionHandler = async () => {
     if (conditionInput.trim().length === 0) {
       Swal.fire({
@@ -51,20 +44,8 @@ const SettingPage = () => {
       })
       return
     }
-    const res = await conditionCreateApi({ name: conditionInput })
-    if (res.status === 200) {
-      dispatch(settingActions.addCondition(res.data.condition))
-      setConditionInput('')
-    } else {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'warning',
-        title: `${res.data.message}`,
-        showConfirmButton: false,
-        timer: 1500,
-      })
-      setConditionInput('')
-    }
+    dispatch(createCondition({ name: conditionInput }))
+    setConditionInput('')
   }
 
   return (

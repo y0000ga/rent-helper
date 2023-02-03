@@ -1,9 +1,8 @@
 import classes from './ConditionItem.module.scss'
 import { Cancel, ArrowRight } from '@mui/icons-material'
 import Swal from 'sweetalert2'
-import { conditionRemoveApi } from '../api/ConditionApi'
 import { useDispatch } from 'react-redux'
-import { settingActions } from '../store/setting-slice'
+import { deleteCondition } from '../store/setting-slice'
 
 const ConditionItem = (props) => {
   const { name, id } = props.data
@@ -20,8 +19,7 @@ const ConditionItem = (props) => {
       confirmButtonText: '刪除',
     })
     if (result.isConfirmed) {
-      const res = await conditionRemoveApi({ id })
-      dispatch(settingActions.removeCondition(res.data.condition))
+      dispatch(deleteCondition({ id }))
     }
   }
   return (

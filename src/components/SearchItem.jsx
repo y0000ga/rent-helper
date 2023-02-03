@@ -3,8 +3,7 @@ import DisplayBlock from '../UI/DisplayBlock'
 import { RemoveCircle, Edit } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
-import { searchDeleteApi } from '../api/searchApi'
-import { searchActions } from '../store/search-slice'
+import { searchActions, searchDelete } from '../store/search-slice'
 import { Divider } from '@mui/material'
 
 const SearchItem = (props) => {
@@ -42,12 +41,11 @@ const SearchItem = (props) => {
         showConfirmButton: false,
         timer: 1500,
       })
-      await searchDeleteApi({ id })
-      dispatch(searchActions.setIsSearchUpdated())
+      dispatch(searchDelete({id}))
     }
   }
   const editSearchHandler = () => {
-    dispatch(searchActions.setSearchFormStatus("edit"))
+    dispatch(searchActions.setSearchFormStatus('edit'))
     dispatch(searchActions.setCurrentSearch({ id }))
   }
   return (

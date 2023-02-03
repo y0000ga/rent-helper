@@ -12,9 +12,8 @@ import ExpenseButton from '../UI/ExpenseButton'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import DisplayBlock from '../UI/DisplayBlock'
-import { housesEditCommentApi } from '../api/housesApi'
-import { roomActions } from '../store/room-slice'
 import ConditionButton from '../UI/ConditionButton'
+import { editComment } from '../store/room-slice'
 
 const RoomDetailModal = (props) => {
   const dispatch = useDispatch()
@@ -46,10 +45,10 @@ const RoomDetailModal = (props) => {
   }
   const saveDataHandler = async () => {
     if (!isCommentInputValid) {
-      return
+      dispatch(editComment({ id, comment }))
+    } else {
+      dispatch(editComment({ id, comment: commentInput }))
     }
-    const res = await housesEditCommentApi({ id, comment: commentInput })
-    dispatch(roomActions.editComment(res.data.house))
     closeModal()
   }
 

@@ -2,22 +2,23 @@ import { TextField } from '@mui/material'
 import { AddHome, Loop } from '@mui/icons-material'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
-import { housesCreateApi } from '../api/housesApi'
-import { useDispatch } from 'react-redux'
-import { roomActions } from '../store/room-slice'
+
+import { useDispatch, useSelector } from 'react-redux'
+
 import classes from './UrlInput.module.scss'
+import { createOne } from '../store/room-slice'
 
 const UrlInput = () => {
   const dispatch = useDispatch()
   const [houseUrl, setHouseUrl] = useState('')
-  const [status, setStatus] = useState('finish')
+  const createRoomStatus = useSelector((state) => state.room.createRoomStatus)
   const isMobileHouseUrlValid = houseUrl.includes(
     'https://m.591.com.tw/v2/rent/'
   )
   const isWebSiteHouseUrlValid = houseUrl.includes(
     'https://rent.591.com.tw/home/'
   )
-  const searchHandler = async () => {
+  const searchHandler = () => {
     if (!isMobileHouseUrlValid && !isWebSiteHouseUrlValid) {
       Swal.fire({
         position: 'top-end',
@@ -34,32 +35,8 @@ const UrlInput = () => {
     } else {
       externalId = houseUrl.replace('https://rent.591.com.tw/home/', '')
     }
-    setStatus('loading')
-    const res = await housesCreateApi({ externalId: Number(externalId) })
-    if (res.status === 200) {
-      const { house } = res.data
-      dispatch(roomActions.addHouse(house))
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: '新增物件成功',
-        showConfirmButton: false,
-        timer: 1500,
-      })
-      setHouseUrl('')
-      setStatus('finish')
-      dispatch(roomActions.setIsRoomUpdated())
-    } else {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'warning',
-        title: `${res.data.message}`,
-        showConfirmButton: false,
-        timer: 1500,
-      })
-      setHouseUrl('')
-      setStatus('finish')
-    }
+    dispatch(createOne({ externalId: Number(externalId) }))
+    setHouseUrl('')
   }
 
   return (
@@ -76,7 +53,7 @@ const UrlInput = () => {
           setHouseUrl(event.target.value)
         }}
       />
-      {status === 'finish' ? (
+      {createRoomStatus.status === 'finish' ? (
         <AddHome
           sx={{ cursor: 'pointer', fontSize: '54px' }}
           color='primary'

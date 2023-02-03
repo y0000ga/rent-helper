@@ -1,8 +1,7 @@
 import { Button } from '@mui/material'
 import { Close, Check } from '@mui/icons-material'
 import { useSelector, useDispatch } from 'react-redux'
-import { meetApi, notMeetApi } from '../api/MeetApi'
-import { roomActions } from '../store/room-slice'
+import { meet, notMeet } from '../store/room-slice'
 
 const ConditionButton = (props) => {
   const { id, name, meetId } = props.data
@@ -11,14 +10,14 @@ const ConditionButton = (props) => {
 
   const controlMetHandler = async () => {
     if (meetId === null) {
-      const res = await meetApi({
-        HouseId: currentRoom.house.id,
-        ConditionId: id,
-      })
-      dispatch(roomActions.meetCondition(res.data.meet))
+      dispatch(
+        meet({
+          HouseId: currentRoom.house.id,
+          ConditionId: id,
+        })
+      )
     } else {
-      const res = await notMeetApi({ id: meetId })
-      dispatch(roomActions.notMeetCondition(res.data.meet))
+      dispatch(notMeet({ id: meetId }))
     }
   }
 

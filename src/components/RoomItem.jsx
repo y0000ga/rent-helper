@@ -2,11 +2,11 @@ import classes from './RoomItem.module.scss'
 import { Close } from '@mui/icons-material'
 import DisplayBlock from '../UI/DisplayBlock'
 import RoomDetailModal from '../components/RoomDetailModal'
-import { housesDeleteApi, housesOneGetApi } from '../api/housesApi'
-import { useDispatch, useSelector } from 'react-redux'
-import { roomActions } from '../store/room-slice'
+import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import { Button } from '@mui/material'
+import { useState } from 'react'
+import { getOneInfo, deleteOne } from '../store/room-slice'
 
 const RoomItem = (props) => {
   const dispatch = useDispatch()
@@ -24,14 +24,13 @@ const RoomItem = (props) => {
     extraExpenses,
     isAllMet,
   } = props.data
-  const isModalShown = useSelector((state) => state.room.isModalShown)
+  const [isModalShown, setIsModalShown] = useState(false)
   const showModalHandler = async () => {
-    const res = await housesOneGetApi({ id })
-    dispatch(roomActions.getCurrentRoom(res.data))
-    dispatch(roomActions.setIsModalShown())
+    await dispatch(getOneInfo({ id }))
+    setIsModalShown(true)
   }
   const closeModalHandler = () => {
-    dispatch(roomActions.setIsModalShown())
+    setIsModalShown(false)
   }
 
   const deleteRoomHandler = async () => {
@@ -46,8 +45,7 @@ const RoomItem = (props) => {
       confirmButtonText: '刪除',
     })
     if (result.isConfirmed) {
-      const res = await housesDeleteApi({ id })
-      dispatch(roomActions.removeHouse(res.data.house))
+      dispatch(deleteOne({id}))
     }
   }
   return (

@@ -9,6 +9,9 @@ const store = configureStore({
     setting: settingSlice,
     room: roomSlice,
   },
+  middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware({ serializableCheck: false }),
+  ],
 })
 
 export default store
