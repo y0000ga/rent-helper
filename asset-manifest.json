@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/rent-helper/static/css/main.f4561381.css",
-    "main.js": "/rent-helper/static/js/main.9a05c183.js",
+    "main.css": "/rent-helper/static/css/main.403f32ef.css",
+    "main.js": "/rent-helper/static/js/main.18bd3cad.js",
     "static/js/787.6d9fa77d.chunk.js": "/rent-helper/static/js/787.6d9fa77d.chunk.js",
     "static/media/logo.svg": "/rent-helper/static/media/logo.ad1ec35c190e496d63531c8f4df62442.svg",
     "index.html": "/rent-helper/index.html",
-    "main.f4561381.css.map": "/rent-helper/static/css/main.f4561381.css.map",
-    "main.9a05c183.js.map": "/rent-helper/static/js/main.9a05c183.js.map",
+    "main.403f32ef.css.map": "/rent-helper/static/css/main.403f32ef.css.map",
+    "main.18bd3cad.js.map": "/rent-helper/static/js/main.18bd3cad.js.map",
     "787.6d9fa77d.chunk.js.map": "/rent-helper/static/js/787.6d9fa77d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f4561381.css",
-    "static/js/main.9a05c183.js"
+    "static/css/main.403f32ef.css",
+    "static/js/main.18bd3cad.js"
   ]
 }
