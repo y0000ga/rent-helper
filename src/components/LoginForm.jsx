@@ -53,43 +53,55 @@ const LoginForm = () => {
   }
 
   return (
-    <Formik
-      initialValues={{ account: '', password: '' }}
-      validationSchema={validate}
-      onSubmit={loginHandler}
-    >
-      <Form className={classes.form}>
-        <div className={classes.title}>登入</div>
-        <InputField
-          type='text'
-          placeholder='請輸入帳號'
-          name='account'
-          label='帳號'
-        />
-        <InputField
-          type='password'
-          placeholder='請輸入密碼'
-          name='password'
-          label='密碼'
-        />
-        <Button
-          type='submit'
-          variant='contained'
-          className={classes.button}
-          sx={{ m: 2, width: '80%' }}
-        >
-          登入
-        </Button>
-        <div
-          className={classes.navigate}
-          onClick={() => {
-            navigate('/signup')
-          }}
-        >
-          還沒有帳號嗎? 註冊
-        </div>
-      </Form>
-    </Formik>
+    <>
+      <Formik
+        initialValues={{ account: '', password: '' }}
+        validationSchema={validate}
+        onSubmit={loginHandler}
+      >
+        <Form className={classes.form}>
+          <div className={classes.title}>登入</div>
+          <InputField
+            type='text'
+            placeholder='請輸入帳號'
+            name='account'
+            label='帳號'
+          />
+          <InputField
+            type='password'
+            placeholder='請輸入密碼'
+            name='password'
+            label='密碼'
+          />
+          <Button
+            type='submit'
+            variant='contained'
+            className={classes.button}
+            sx={{ m: 2, width: '80%' }}
+          >
+            登入
+          </Button>
+          <div
+            className={classes.navigate}
+            onClick={() => {
+              navigate('/signup')
+            }}
+          >
+            還沒有帳號嗎? 註冊
+          </div>
+        </Form>
+      </Formik>
+      <div className={classes.test}>
+        <p className={classes.title}>測試用帳號</p>
+        <p>
+          帳號: user1 <span>密碼: User1</span>
+        </p>
+        <p>
+          已和其他 Line 帳號連結，故僅供平台操作，若使用者需要使用 Line
+          通知合適物件，則須自行註冊新的帳號密碼。
+        </p>
+      </div>
+    </>
   )
 }
 
