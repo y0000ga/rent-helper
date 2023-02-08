@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import InputField from '../UI/InputField'
 import { userLoginApi } from '../api/userApi'
 import Swal from 'sweetalert2'
+import LoginTest from './LoginTest'
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -91,16 +92,7 @@ const LoginForm = () => {
           </div>
         </Form>
       </Formik>
-      <div className={classes.test}>
-        <p className={classes.title}>測試用帳號</p>
-        <p>
-          帳號: user1 <span>密碼: User1</span>
-        </p>
-        <p>
-          已和其他 Line 帳號連結，故僅供平台操作，若使用者需要使用 Line
-          通知合適物件，則須自行註冊新的帳號密碼。
-        </p>
-      </div>
+      <LoginTest />
     </>
   )
 }

@@ -2,9 +2,7 @@ import { TextField } from '@mui/material'
 import { AddHome, Loop } from '@mui/icons-material'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
-
 import { useDispatch, useSelector } from 'react-redux'
-
 import classes from './UrlInput.module.scss'
 import { createOne } from '../store/room-slice'
 
@@ -60,11 +58,11 @@ const UrlInput = () => {
           onClick={searchHandler}
         />
       ) : (
-        <Loop
-          className={classes.loading}
-          sx={{ cursor: 'wait', fontSize: '54px' }}
-          color='success'
-        />
+          <Loop
+            className={classes.loading}
+            sx={{ cursor: 'wait', fontSize: '54px' }}
+            color='success'
+          />
       )}
     </div>
   )

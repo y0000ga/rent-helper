@@ -1,8 +1,21 @@
-import classes from './ConditionItem.module.scss'
 import { Cancel, ArrowRight } from '@mui/icons-material'
 import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux'
 import { deleteCondition } from '../store/setting-slice'
+import styled from 'styled-components'
+
+const ListItem = styled.li`
+  margin: 10px 0px;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const ListSeparator = styled.li`
+  display: flex;
+  align-items: center;
+`
 
 const ConditionItem = (props) => {
   const { name, id } = props.data
@@ -23,17 +36,17 @@ const ConditionItem = (props) => {
     }
   }
   return (
-    <li className={classes.li}>
-      <div className={classes.li__separator}>
+    <ListItem>
+      <ListSeparator>
         <ArrowRight />
         {name}
-      </div>
+      </ListSeparator>
       <Cancel
         color='error'
         onClick={removeConditionHandler}
         sx={{ cursor: 'pointer' }}
       />
-    </li>
+    </ListItem>
   )
 }
 
