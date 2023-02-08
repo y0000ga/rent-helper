@@ -17,6 +17,7 @@ const CollectPage = () => {
   const allRoom = useSelector((state) => state.room.allRoom)
   const isCollectUpdate = useSelector((state) => state.room.isCollectUpdate)
   const hasMoreRoom = useSelector((state) => state.room.hasMoreRoom)
+  console.log(hasMoreRoom)
   const [tabValue, setTabValue] = useState(0)
   const [page, setPage] = useState(1)
   useEffect(() => {
@@ -49,7 +50,8 @@ const CollectPage = () => {
     setPage(2)
     setTabValue(0)
   }
-  const changePage = async () => {
+  const changePage = () => {
+    console.log('ok')
     dispatch(
       getMoreInfo({
         page: page,

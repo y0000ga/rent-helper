@@ -21,7 +21,7 @@ const initialState = {
   allRoom: [],
   currentRoom: [],
   createRoomStatus: { status: 'finish', message: '' },
-  hasMoreRoom: false,
+  hasMoreRoom: true,
   isCollectUpdate: false,
 }
 // 取得全部物件資訊
@@ -168,6 +168,9 @@ const roomSlice = createSlice({
   initialState: initialState,
   extraReducers: (builder) => {
     // 取得全部物件資訊
+    builder.addCase(getAllInfo.pending, (state) => {
+      state.hasMoreRoom = true
+    })
     builder.addCase(getAllInfo.fulfilled, (state, action) => {
       state.allRoom = action.payload.data.houses
     })
@@ -181,7 +184,7 @@ const roomSlice = createSlice({
       state.currentRoom = action.payload.data
     })
     // 編輯單一物件評論
-    builder.addCase(editComment.fulfilled, (state, action) => { 
+    builder.addCase(editComment.fulfilled, (state, action) => {
       const { id, comment } = action.payload.data.house
       const existedItem = state.allRoom.findIndex((data) => data.id === id)
       state.allRoom[existedItem].comment = comment

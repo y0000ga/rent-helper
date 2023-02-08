@@ -19,7 +19,7 @@ const Title = styled.p`
   color: #8b0000;
   font-size: 20px;
 `
-const Content = styled.p`
+const Content = styled.div`
   text-align: justify;
   margin-top: 10px;
 `

@@ -12,7 +12,7 @@ const ListItem = styled.li`
   justify-content: space-between;
 `
 
-const ListSeparator = styled.li`
+const ListSeparator = styled.div`
   display: flex;
   align-items: center;
 `
