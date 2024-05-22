@@ -2,8 +2,9 @@
 
 Rent Helper 租屋小幫手是一個使用 React.js 與 Material UI 等工具所打造的前端專案，搭配後端專案 [Rent Helper API](https://github.com/SimonHung8/rent-helper-api) 與[設計稿](https://www.figma.com/file/aVZybAfmifxvDPZv0ql1PZ/rent-helper?node-id=0%3A1)，提供使用者可以在 Line 上接收最新 591 租屋資訊的功能，同時可以在 Rent Helper 平台上收藏感興趣的物件，並針對自定義條件、額外支出與個人評論做相關編輯。
 
-### [網站入口](https://y0000ga.github.io/rent-helper/)
-![租屋小幫手-showcase-mockup](https://user-images.githubusercontent.com/111579529/213363944-85705521-832d-47de-8fd6-3da6b9c93dfe.jpg)
+### [網站入口]
+
+***後端服務已停止運行***
 
 ## 功能與畫面
 測試帳號
